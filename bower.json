@@ -1,0 +1,27 @@
+{
+  "name": "createjs-template",
+  "homepage": "https://github.com/CentennialCollege/COMP397-F2017-Project-Template",
+  "authors": [
+    "Tom Tsiliopoulos <tsiliopoulos@hotmail.com>"
+  ],
+  "description": "CreateJS Project Template",
+  "main": "",
+  "keywords": [
+    "CreateJS"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "Scripts/lib",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "EaselJS": "^0.8.2",
+    "TweenJS": "^0.6.2",
+    "SoundJS": "^0.6.2",
+    "PreloadJS": "^0.6.2"
+  }
+}
