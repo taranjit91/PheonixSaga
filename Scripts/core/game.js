@@ -4,9 +4,9 @@
     var canvas;
     var assetManager;
     var assetManifest = [
-        { id: "backButton", src: "../../Assets/images/backButton.png" },
-        { id: "nextButton", src: "../../Assets/images/nextButton.png" },
-        { id: "startButton", src: "../../Assets/images/startButton.png" }
+        { id: "backButton", src: "../../Assets/images/back.png" },
+        { id: "nextButton", src: "../../Assets/images/next.png" },
+        { id: "startButton", src: "../../Assets/images/start.png" }
     ];
     var currentScene;
     var currentState;
