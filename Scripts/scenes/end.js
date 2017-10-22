@@ -24,8 +24,8 @@ var scenes;
         // PRIVATE METHODS
         // PUBLIC METHODS
         End.prototype.Start = function () {
-            this._gameOverLabel = new objects.Label("Game Over", "40px", "Consolas", "#000000", 320, 240, true);
-            this._backButton = new objects.Button(this._assetManager, "backButton", 320, 340, true);
+            this._gameOverLabel = new objects.Label("Game Over", "40px", "Consolas", "#ffffff", 400, 240, true);
+            this._backButton = new objects.Button(this._assetManager, "backButton", 400, 340, true);
             this.Main();
         };
         End.prototype.Update = function () {
