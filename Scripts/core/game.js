@@ -4,17 +4,17 @@
     var canvas;
     var assetManager;
     var assetManifest = [
-        { id: "backButton", src: "../../Assets/images/back.png" },
-        { id: "nextButton", src: "../../Assets/images/next.png" },
-        { id: "tutorialButton", src: "../../Assets/images/tutorial.png" },
-        { id: "exitButton", src: "../../Assets/images/exit.png" },
-        { id: "startButton", src: "../../Assets/images/start.png" },
-        { id: "ocean", src: "../../Assets/images/black.gif" },
-        { id: "plane", src: "../../Assets/images/plane.png" },
-        { id: "bullet", src: "../../Assets/images/bullet.png" },
-        { id: "monsterbird", src: "../../Assets/images/monsterbird.png" },
-        { id: "obstacle", src: "../../Assets/images/obstacle.png" },
-        { id: "engine", src: "../../Assets/audio/engine.ogg" },
+        { id: "backButton", src: "./Assets/images/back.png" },
+        { id: "nextButton", src: "./Assets/images/next.png" },
+        { id: "tutorialButton", src: "./Assets/images/tutorial.png" },
+        { id: "exitButton", src: "./Assets/images/exit.png" },
+        { id: "startButton", src: "./Assets/images/start.png" },
+        { id: "ocean", src: "./Assets/images/black.gif" },
+        { id: "plane", src: "./Assets/images/plane.png" },
+        { id: "bullet", src: "./Assets/images/bullet.png" },
+        { id: "monsterbird", src: "./Assets/images/monsterbird.png" },
+        { id: "obstacle", src: "./Assets/images/obstacle.png" },
+        { id: "engine", src: "./Assets/audio/engine.ogg" },
     ];
     var currentScene;
     var currentState;
