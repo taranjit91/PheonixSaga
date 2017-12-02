@@ -19,7 +19,10 @@ module objects {
           this._reset();
         }
       }
-  
+      
+      public Reset(): void {
+        this._reset();
+      }
       // PUBLIC METHODS
       public Start():void {
         this.verticalSpeed = 5;

@@ -20,7 +20,7 @@ module objects {
         this._initialize();
       }
       // PROTECTED METHODS
-  
+     
       private _initialize():void {
         this.width = this.getBounds().width;
         this.height = this.getBounds().height;

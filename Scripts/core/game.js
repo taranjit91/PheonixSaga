@@ -50,6 +50,9 @@
             case config.PLAY:
                 currentScene = new scenes.Play(assetManager, currentState);
                 break;
+            case config.LEVEL2:
+                currentScene = new scenes.Level2(assetManager, currentState);
+                break;
             case config.END:
                 currentScene = new scenes.End(assetManager, currentState);
                 break;
