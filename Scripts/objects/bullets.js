@@ -35,6 +35,9 @@ var objects;
             this.verticalSpeed = -10;
             this._reset();
         };
+        Bullet.prototype.Reset = function () {
+            this._reset();
+        };
         Bullet.prototype._updatePosition = function () {
             this.y += this.verticalSpeed;
             this.position.x = this.x;

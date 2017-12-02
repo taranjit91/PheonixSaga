@@ -46,6 +46,9 @@ var objects;
             this._updatePosition();
             this._checkBounds();
         };
+        Obstacle.prototype.Reset = function () {
+            this._reset();
+        };
         return Obstacle;
     }(objects.GameObject));
     objects.Obstacle = Obstacle;

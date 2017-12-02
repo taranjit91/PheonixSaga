@@ -39,5 +39,8 @@ module objects {
         this._updatePosition();
         this._checkBounds();
       }
+      public Reset(): void {
+        this._reset();
+      }
     }
   }

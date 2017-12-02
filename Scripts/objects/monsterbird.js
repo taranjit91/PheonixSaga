@@ -30,6 +30,9 @@ var objects;
                 this._reset();
             }
         };
+        MonsterBird.prototype.Reset = function () {
+            this._reset();
+        };
         // PUBLIC METHODS
         MonsterBird.prototype.Start = function () {
             this.verticalSpeed = 5;

@@ -25,7 +25,11 @@ module objects {
         this.verticalSpeed = -10;
         this._reset();
       }
-  
+      
+      public Reset(): void {
+        this._reset();
+      }
+
       private _updatePosition(): void {
         this.y += this.verticalSpeed;
         this.position.x = this.x;
