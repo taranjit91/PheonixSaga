@@ -127,7 +127,7 @@ module core{
 
             // [DEBUG] Log
             //console.log(this.inputdata);
-            console.log(this.inputdata.up, this.inputdata.down);
+            //console.log(this.inputdata.up, this.inputdata.down);
 
             return this.inputdata;
         }

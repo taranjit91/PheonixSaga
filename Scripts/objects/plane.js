@@ -26,6 +26,12 @@ var objects;
             if (this.x <= this.halfWidth) {
                 this.x = this.halfWidth;
             }
+            if (this.y >= (600 - this.halfHeight)) {
+                this.y = 600 - this.halfHeight;
+            }
+            if (this.y <= this.halfHeight) {
+                this.y = this.halfHeight;
+            }
         };
         // PUBLIC METHODS
         Plane.prototype.Start = function () {

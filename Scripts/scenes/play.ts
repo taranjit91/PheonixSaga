@@ -16,6 +16,10 @@ module scenes {
     private _bullets: objects.Bullet[];
     private _bulletNum: number;
     private _bulletCounter: number;
+
+    private _enemyBullets: objects.EnemyBullet[];
+    private _enemyBulletNum: number;
+    private _enemyBulletCounter: number;
     
     private _lives: number;
     private _score: number;
@@ -56,6 +60,13 @@ module scenes {
       this._bulletNum = 50;
       this._bullets = new Array<objects.Bullet>();
       this._bulletCounter = 0;
+
+      this._enemyBulletNum = 100;
+      this._enemyBullets = new Array<objects.EnemyBullet>();
+      this._enemyBulletCounter = 0;
+
+      //console.log(this._bullets);
+      //console.log(this._enemyBullets);
       
       this._lives = 5;
       this._score = 0;
@@ -81,11 +92,21 @@ module scenes {
       
       this._ocean.Update();
       this._monsterBird.Update();
+      this._checkCollision(this._monsterBird);
+      if( this._monsterBird.TriggerFire() ) {
+        this._enemyBulletFire();
+      }
+
       this._checkCollisionsBullet(this._monsterBird);
 
       this._bullets.forEach(bullet => {
         bullet.Update();
         this._checkCollisionsBullet(bullet);
+      });
+
+      this._enemyBullets.forEach(enemyBullet => {
+        enemyBullet.Update();
+        //this._checkCollisionsBullet(bullet);
       });
 
       this._obstacles.forEach(obstacle => {
@@ -105,6 +126,11 @@ module scenes {
         this._bullets[count] = new objects.Bullet(this._assetManager);
         this.addChild(this._bullets[count]);
       }
+
+      for (let counte = 0; counte < this._enemyBulletNum; counte++) {
+        this._enemyBullets[counte] = new objects.EnemyBullet(this._assetManager);
+        this.addChild(this._enemyBullets[counte]);
+      }
       
       for (let count = 0; count < this._obstacleNum; count++) {
         this._obstacles[count] = new objects.Obstacle(this._assetManager);
@@ -115,19 +141,35 @@ module scenes {
       this.addChild(this._scoreLabel);
     }
 
-    private  _bulletFire():void {
+    private _bulletFire():void {
       this._bullets[this._bulletCounter].x = this._plane.bulletSpawn.x;
       this._bullets[this._bulletCounter].y = this._plane.bulletSpawn.y;
 
       this._bulletCounter++;
-      console.log(this._bulletCounter);
-      if(this._bulletCounter >= this._bulletNum -1) {
+      //console.log(this._bulletCounter);
+      if(this._bulletCounter >= this._bulletNum - 1) {
         this._bulletCounter = 0;
       }
-  }
-  private _checkCollisionsBullet(other:objects.GameObject) {   
-        var pos = this._monsterBird.position;
-       // var size = enemies[i].sprite.size;
+    }
+
+    private _enemyBulletFire():void {
+      this._monsterBird.SetBulletTrigger(false);
+
+      //console.log("TEST" + this._enemyBullets);
+      //console.log("X = " + this._enemyBullets[0].x + "Y = " + this._enemyBullets[0].y);
+
+      this._enemyBullets[this._enemyBulletCounter].x = this._monsterBird.bulletSpawn.x;
+      this._enemyBullets[this._enemyBulletCounter].y = this._monsterBird.bulletSpawn.y;
+
+      this._enemyBulletCounter++;
+      if(this._enemyBulletCounter >= this._enemyBulletNum - 1) {
+        this._enemyBulletCounter = 0;
+      }
+    }
+
+    private _checkCollisionsBullet(other:objects.GameObject) {
+      var pos = this._monsterBird.position;
+      // var size = enemies[i].sprite.size;
 
         for(var j = 0; j < this._bullets.length; j++) {
             var pos2 = this._bullets[j].position;
@@ -169,14 +211,15 @@ module scenes {
       if(Math.sqrt(Math.pow(P2.x - P1.x, 2) + Math.pow(P2.y - P1.y, 2)) <(
         this._plane.halfHeight + other.halfHeight)) {
           if(!other.isColliding){  
-          console.log("Collision with " + other.name);
+          //console.log("Collision with " + other.name);
           // if(other.name == "monsterbird"){
           //   this._score += 100;
           //   this._scoreLabel.text = "Score: " + this._score;
           //   createjs.Sound.play("thunder", 0, 0, 0, 0, 0.5);
           // }
-          if(other.name == "obstacle") 
-          {
+          console.log(other.name);
+            if(other.name == "obstacle" || other.name == "monsterbird") 
+            {
             this._lives -= 1;
             other.Reset();
             if(this._lives <= 0) {

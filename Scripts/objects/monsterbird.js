@@ -12,8 +12,6 @@ var objects;
 (function (objects) {
     var MonsterBird = /** @class */ (function (_super) {
         __extends(MonsterBird, _super);
-        // PRIVATE INSTANCE VARIABLES
-        // PUBLIC PROPERTIES
         // CONSTRUCTORS
         function MonsterBird(assetManager) {
             var _this = _super.call(this, assetManager, "monsterbird") || this;
@@ -35,8 +33,12 @@ var objects;
         };
         // PUBLIC METHODS
         MonsterBird.prototype.Start = function () {
-            this.verticalSpeed = 5;
+            this.verticalSpeed = 2;
             this._reset();
+            this.bulletSpawn = new createjs.Point(this.y - 35, this.x);
+            this._bulletTrigger = false;
+            this._bulletTriggerCount = 0;
+            this._bulletTriggerPoint = 50;
         };
         MonsterBird.prototype._updatePosition = function () {
             this.y += this.verticalSpeed;
@@ -44,8 +46,22 @@ var objects;
             this.position.y = this.y;
         };
         MonsterBird.prototype.Update = function () {
+            this.bulletSpawn.x = this.x;
+            this.bulletSpawn.y = this.y + 20;
             this._updatePosition();
             this._checkBounds();
+            this._bulletTriggerCount++;
+            if (this._bulletTriggerCount > 100) {
+                console.log(this._bulletTriggerCount);
+                this._bulletTrigger = true;
+                this._bulletTriggerCount = 0;
+            }
+        };
+        MonsterBird.prototype.SetBulletTrigger = function (bulletFlag) {
+            this._bulletTrigger = bulletFlag;
+        };
+        MonsterBird.prototype.TriggerFire = function () {
+            return this._bulletTrigger;
         };
         return MonsterBird;
     }(objects.GameObject));

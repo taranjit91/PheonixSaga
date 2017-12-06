@@ -15,12 +15,18 @@ module objects {
 
       // PRIVATE METHODS
       private _checkBounds() {
-          if(this.x >= (800 - this.halfHeight)) {
-              this.x = 800 - this.halfWidth;
-          }
-          if(this.x <= this.halfWidth) {
-              this.x = this.halfWidth;
-          }
+        if(this.x >= (800 - this.halfHeight)) {
+            this.x = 800 - this.halfWidth;
+        }
+        if(this.x <= this.halfWidth) {
+            this.x = this.halfWidth;
+        }
+        if(this.y >= (600 - this.halfHeight)) {
+            this.y = 600 - this.halfHeight;
+        }
+        if(this.y <= this.halfHeight) {
+            this.y = this.halfHeight
+        }
       }
 
       // PUBLIC METHODS
@@ -43,7 +49,7 @@ module objects {
       public Update() {
           //this.x = this.stage.mouseX;
           this.bulletSpawn.x = this.x;
-          this.bulletSpawn.y = this.y -35;
+          this.bulletSpawn.y = this.y - 35;
           this._checkBounds();
       }
 
