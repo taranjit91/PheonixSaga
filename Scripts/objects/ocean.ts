@@ -12,23 +12,23 @@ module objects {
     }
     // PRIVATE METHODS
     private _reset():void {
-      this.y = -200;
+      this.x = -200;
     }
 
     private _checkBounds():void {
-      if(this.y >= 0) {
+      if(this.x >= 0) {
         this._reset();
       }
     }
 
     // PUBLIC METHODS
     public Start():void {
-      this._verticalSpeed = 5;
+      this._verticalSpeed = 2;
       this._reset();
     }
 
     public Update():void {
-      this.y += this._verticalSpeed;
+      this.x += this._verticalSpeed;
       this._checkBounds();
     }
   }
