@@ -51,7 +51,7 @@ var objects;
             this._updatePosition();
             this._checkBounds();
             this._bulletTriggerCount++;
-            if (this._bulletTriggerCount > 100) {
+            if (this._bulletTriggerCount > this._bulletTriggerPoint) {
                 console.log(this._bulletTriggerCount);
                 this._bulletTrigger = true;
                 this._bulletTriggerCount = 0;
