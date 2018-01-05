@@ -21,20 +21,20 @@ var objects;
         }
         // PRIVATE METHODS
         Ocean.prototype._reset = function () {
-            this.y = -200;
+            this.x = -200;
         };
         Ocean.prototype._checkBounds = function () {
-            if (this.y >= 0) {
+            if (this.x >= 0) {
                 this._reset();
             }
         };
         // PUBLIC METHODS
         Ocean.prototype.Start = function () {
-            this._verticalSpeed = 5;
+            this._verticalSpeed = 2;
             this._reset();
         };
         Ocean.prototype.Update = function () {
-            this.y += this._verticalSpeed;
+            this.x += this._verticalSpeed;
             this._checkBounds();
         };
         return Ocean;

@@ -9,7 +9,7 @@
         { id: "tutorialButton", src: "./Assets/images/tutorial.png" },
         { id: "exitButton", src: "./Assets/images/exit.png" },
         { id: "startButton", src: "./Assets/images/start.png" },
-        { id: "ocean", src: "./Assets/images/black.gif" },
+        { id: "ocean", src: "./Assets/images/background/level1bg.jpg" },
         { id: "plane", src: "./Assets/images/plane.png" },
         { id: "bullet", src: "./Assets/images/bullet.png" },
         { id: "monsterbird", src: "./Assets/images/monsterbird.png" },
