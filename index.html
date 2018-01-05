@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>CreateJS Project Template</title>
+  <title>Phoenix Saga</title>
   <!-- CSS Section -->
   <link rel="stylesheet" href="./Content/game.css">
 </head>
 <body>
-  <canvas id="canvas" width="640" height="480"></canvas>
+  <canvas id="canvas" width="800" height="600" ></canvas>
 
   <!-- JavaScript Section -->
   <script src="./Scripts/lib/EaselJS/lib/easeljs-0.8.2.min.js"></script>
@@ -18,14 +18,28 @@
 
   <!-- Game Scripts -->
   <script src="./Scripts/config/scene.js"></script>
+  
+  <!-- SEAN Begin -->
+  <script src="./Scripts/config/gamepad.js"></script>
+  <script src="./Scripts/core/inputmanager.js"></script>
+  <!-- SEAN End -->
 
+  
+  <script src="./Scripts/objects/gameobject.js"></script>
   <script src="./Scripts/objects/label.js"></script>
   <script src="./Scripts/objects/button.js"></script>
+  <script src="./Scripts/objects/bullets.js"></script>
+  <script src="./Scripts/objects/enemybullets.js"></script>
+  <script src="./Scripts/objects/plane.js"></script>
+  <script src="./Scripts/objects/ocean.js"></script>
+  <script src="./Scripts/objects/monsterbird.js"></script>
+  <script src="./Scripts/objects/obstacle.js"></script>
 
   <script src="./Scripts/objects/scene.js"></script>
   <script src="./Scripts/scenes/end.js"></script>
   <script src="./Scripts/scenes/play.js"></script>
   <script src="./Scripts/scenes/start.js"></script>
+   <script src="./Scripts/scenes/level2.js"></script>
 
   <script src="./Scripts/core/game.js"></script>
 </body>

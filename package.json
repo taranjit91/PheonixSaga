@@ -1,5 +1,5 @@
 {
-  "name": "createjs-project-template",
+  "name": "PheonixSaga",
   "version": "1.0",
   "main": "",
   "scripts": {
@@ -7,18 +7,19 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/CentennialCollege/COMP397-F2017-Project-Template.git"
+    "url": "https://github.com/taranjit91/PheonixSaga.git"
   },
-  "author": "Tom Tsiliopoulos",
+  "author": "Taranjit Kaur, Amandeep Aujla, Sean ",
   "license": "MIT",
-  "description": "CreateJS Project Template",
-  "dependencies": {},
-  "devDependencies": {
-    "@types/easeljs": "^0.8.36",
+  "description": "Web Game Project",
+  "dependencies": {
+    "@types/createjs-lib": "0.0.29",
+    "@types/easeljs": "^1.0.0",
     "@types/preloadjs": "^0.6.32",
     "@types/soundjs": "^0.6.27",
     "@types/tweenjs": "^0.6.27"
   },
+  "devDependencies": {},
   "keywords": [],
   "files": []
 }

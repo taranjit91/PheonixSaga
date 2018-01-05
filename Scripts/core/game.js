@@ -4,9 +4,17 @@
     var canvas;
     var assetManager;
     var assetManifest = [
-        { id: "backButton", src: "../../Assets/images/back.png" },
-        { id: "nextButton", src: "../../Assets/images/next.png" },
-        { id: "startButton", src: "../../Assets/images/start.png" }
+        { id: "backButton", src: "./Assets/images/back.png" },
+        { id: "nextButton", src: "./Assets/images/next.png" },
+        { id: "tutorialButton", src: "./Assets/images/tutorial.png" },
+        { id: "exitButton", src: "./Assets/images/exit.png" },
+        { id: "startButton", src: "./Assets/images/start.png" },
+        { id: "ocean", src: "./Assets/images/background/level1bg.jpg" },
+        { id: "plane", src: "./Assets/images/plane.png" },
+        { id: "bullet", src: "./Assets/images/bullet.png" },
+        { id: "monsterbird", src: "./Assets/images/monsterbird.png" },
+        { id: "obstacle", src: "./Assets/images/obstacle.png" },
+        { id: "engine", src: "./Assets/audio/engine.ogg" },
     ];
     var currentScene;
     var currentState;
@@ -41,6 +49,9 @@
                 break;
             case config.PLAY:
                 currentScene = new scenes.Play(assetManager, currentState);
+                break;
+            case config.LEVEL2:
+                currentScene = new scenes.Level2(assetManager, currentState);
                 break;
             case config.END:
                 currentScene = new scenes.End(assetManager, currentState);

@@ -5,6 +5,9 @@ module scenes {
 
     private _welcomeLabel:objects.Label;
     private _startButton:objects.Button;
+    private _tutorialButton:objects.Button;
+    private _exitButton:objects.Button;
+
 
     // PUBLIC PROPERTIES
 
@@ -19,8 +22,10 @@ module scenes {
 
     // PUBLIC METHODS
     public Start():void {
-      this._welcomeLabel = new objects.Label("Pheonix Saga", "40px", "Consolas", "#000000", 320, 240, true);
-      this._startButton = new objects.Button(this._assetManager, "startButton", 320, 340, true);
+      this._welcomeLabel = new objects.Label("Pheonix Saga", "40px", "Consolas", "#ffffff", 400, 100, true);
+      this._startButton = new objects.Button(this._assetManager, "startButton", 400, 200, true);
+      this._tutorialButton = new objects.Button(this._assetManager, "tutorialButton", 400, 300, true);
+      this._exitButton = new objects.Button(this._assetManager, "exitButton", 400, 400, true);
       this.Main();
     }
 
@@ -34,6 +39,8 @@ module scenes {
 
 
       this.addChild(this._startButton);
+      this.addChild(this._tutorialButton);
+      this.addChild(this._exitButton);
 
       this._startButton.on("click", () => {
         this._currentScene = config.PLAY;
