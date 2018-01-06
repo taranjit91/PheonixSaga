@@ -224,12 +224,23 @@ module scenes {
 
     private _updateBulletLabel():void {
         this._bulletLabel.text = "Bullets: " + (this._bulletNum - this._bulletCounter);
+        this._ifNoBullets();
     }
 
     private _updatePowerBulletLabel():void {
         this._powerBulletLabel.text = "Power Bullets: " + (this._powerbulletNum - this._powerbulletCounter);
+        this._ifNoBullets();
     }
 
+    private _ifNoBullets()
+    {
+        if((this._bulletNum-this._bulletCounter) <= 0 && (this._powerbulletNum - this._powerbulletCounter) <=0)
+        {
+            this._currentScene = config.END;
+            
+             this.removeAllChildren();
+        }
+    }
     public Main():void {
   
         this.addChild(this._bg);

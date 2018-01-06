@@ -171,9 +171,17 @@ var scenes;
         };
         Level3.prototype._updateBulletLabel = function () {
             this._bulletLabel.text = "Bullets: " + (this._bulletNum - this._bulletCounter);
+            this._ifNoBullets();
         };
         Level3.prototype._updatePowerBulletLabel = function () {
             this._powerBulletLabel.text = "Power Bullets: " + (this._powerbulletNum - this._powerbulletCounter);
+            this._ifNoBullets();
+        };
+        Level3.prototype._ifNoBullets = function () {
+            if ((this._bulletNum - this._bulletCounter) <= 0 && (this._powerbulletNum - this._powerbulletCounter) <= 0) {
+                this._currentScene = config.END;
+                this.removeAllChildren();
+            }
         };
         Level3.prototype.Main = function () {
             var _this = this;
