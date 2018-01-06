@@ -14,6 +14,7 @@ module scenes {
         private _monsterBoss:objects.MonsterBoss;
         private _monsterBossHPBar:createjs.Shape;
         
+        // For Bullet
         private _bullets: objects.Bullet[];
         private _bulletNum: number;
         private _bulletCounter: number;
@@ -21,8 +22,10 @@ module scenes {
         private _powerbullets: objects.PowerBullet[];
         private _powerbulletNum: number;
         private _powerbulletCounter: number;
-
   
+        private _bulletLabel:objects.Label;
+        private _powerBulletLabel:objects.Label;
+
         // PUBLIC PROPERTIES
   
         // CONSTRUCTORS
@@ -51,6 +54,9 @@ module scenes {
         this._powerbulletNum = 5;
         this._powerbullets = new Array<objects.PowerBullet>();
         this._powerbulletCounter = 0;
+
+        this._bulletLabel = new objects.Label("Bullet: ", "16px", "Consolas", "#ffffff", 10, config.Screen.HEIGHT - 40, false); 
+        this._powerBulletLabel = new objects.Label("Power Bullet: ", "16px", "Consolas", "#ffffff", 10, config.Screen.HEIGHT - 25, false); 
         
         this.Main();
       }
@@ -66,11 +72,11 @@ module scenes {
         if( this._player.TriggerFire(this._inputData) ) {
             if(this._bulletCounter<this._bulletNum)
             {
-            console.log("fire >> "+this._bulletCounter+" >> "+this._bulletNum);
+                //console.log("fire >> "+this._bulletCounter+" >> "+this._bulletNum);
             this._bulletFire(1);
             }
             else{
-            console.log("no bullets");
+                //console.log("no bullets");
             }
         }
 
@@ -96,6 +102,10 @@ module scenes {
         });
 
         this._updateBossHPBar();
+
+        // Update Bullet Label
+        this._updateBulletLabel();
+        this._updatePowerBulletLabel();
 
         return this._currentScene;
     }
@@ -157,7 +167,7 @@ module scenes {
     private _createBossHPBar():void {
         this._monsterBossHPBar = new createjs.Shape();
         this._monsterBossHPBar.x = config.Screen.WIDTH - 350;
-        this._monsterBossHPBar.y = config.Screen.HEIGHT - 25;
+        this._monsterBossHPBar.y = config.Screen.HEIGHT - 35;
         this._monsterBossHPBar.graphics.setStrokeStyle(2);
         this._monsterBossHPBar.graphics.beginStroke('#000');
         this._monsterBossHPBar.graphics.drawRect(0, 0, 300, 20);
@@ -175,6 +185,14 @@ module scenes {
         this._monsterBossHPBar.graphics.endStroke();
     }
 
+    private _updateBulletLabel():void {
+        this._bulletLabel.text = "Bullet: " + (this._bulletNum - this._bulletCounter);
+    }
+
+    private _updatePowerBulletLabel():void {
+        this._powerBulletLabel.text = "Power Bullet: " + (this._powerbulletNum - this._powerbulletCounter);
+    }
+
     public Main():void {
   
         this.addChild(this._bg);
@@ -182,6 +200,8 @@ module scenes {
   
         this.addChild(this._player);
         this.addChild(this._monsterBoss);
+
+        // For Bullet
         for (let count = 0; count < this._bulletNum; count++) {
           this._bullets[count] = new objects.Bullet(this._assetManager,"bullet");
           this.addChild(this._bullets[count]);
@@ -191,6 +211,9 @@ module scenes {
           this._powerbullets[count] = new objects.PowerBullet(this._assetManager,"powerBullet");
           this.addChild(this._powerbullets[count]);
         }
+        
+        this.addChild(this._bulletLabel);
+        this.addChild(this._powerBulletLabel);
         
         this._createBossHPBar();
   

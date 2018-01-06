@@ -36,6 +36,8 @@ var scenes;
             this._powerbulletNum = 5;
             this._powerbullets = new Array();
             this._powerbulletCounter = 0;
+            this._bulletLabel = new objects.Label("Bullet: ", "16px", "Consolas", "#ffffff", 10, config.Screen.HEIGHT - 40, false);
+            this._powerBulletLabel = new objects.Label("Power Bullet: ", "16px", "Consolas", "#ffffff", 10, config.Screen.HEIGHT - 25, false);
             this.Main();
         };
         // =======================================================
@@ -48,11 +50,11 @@ var scenes;
             this._player.UpdatePosition(this._inputData);
             if (this._player.TriggerFire(this._inputData)) {
                 if (this._bulletCounter < this._bulletNum) {
-                    console.log("fire >> " + this._bulletCounter + " >> " + this._bulletNum);
+                    //console.log("fire >> "+this._bulletCounter+" >> "+this._bulletNum);
                     this._bulletFire(1);
                 }
                 else {
-                    console.log("no bullets");
+                    //console.log("no bullets");
                 }
             }
             if (this._player.TriggerPowerBullet(this._inputData)) {
@@ -73,6 +75,9 @@ var scenes;
                 // this._checkCollisionsBullet(bullet);
             });
             this._updateBossHPBar();
+            // Update Bullet Label
+            this._updateBulletLabel();
+            this._updatePowerBulletLabel();
             return this._currentScene;
         };
         // END of Update()
@@ -121,7 +126,7 @@ var scenes;
         Level3.prototype._createBossHPBar = function () {
             this._monsterBossHPBar = new createjs.Shape();
             this._monsterBossHPBar.x = config.Screen.WIDTH - 350;
-            this._monsterBossHPBar.y = config.Screen.HEIGHT - 25;
+            this._monsterBossHPBar.y = config.Screen.HEIGHT - 35;
             this._monsterBossHPBar.graphics.setStrokeStyle(2);
             this._monsterBossHPBar.graphics.beginStroke('#000');
             this._monsterBossHPBar.graphics.drawRect(0, 0, 300, 20);
@@ -137,12 +142,19 @@ var scenes;
             this._monsterBossHPBar.graphics.drawRect(0, 0, 300, 20);
             this._monsterBossHPBar.graphics.endStroke();
         };
+        Level3.prototype._updateBulletLabel = function () {
+            this._bulletLabel.text = "Bullet: " + (this._bulletNum - this._bulletCounter);
+        };
+        Level3.prototype._updatePowerBulletLabel = function () {
+            this._powerBulletLabel.text = "Power Bullet: " + (this._powerbulletNum - this._powerbulletCounter);
+        };
         Level3.prototype.Main = function () {
             var _this = this;
             this.addChild(this._bg);
             this.addChild(this._level2Label);
             this.addChild(this._player);
             this.addChild(this._monsterBoss);
+            // For Bullet
             for (var count = 0; count < this._bulletNum; count++) {
                 this._bullets[count] = new objects.Bullet(this._assetManager, "bullet");
                 this.addChild(this._bullets[count]);
@@ -151,6 +163,8 @@ var scenes;
                 this._powerbullets[count] = new objects.PowerBullet(this._assetManager, "powerBullet");
                 this.addChild(this._powerbullets[count]);
             }
+            this.addChild(this._bulletLabel);
+            this.addChild(this._powerBulletLabel);
             this._createBossHPBar();
             this._backButton.on("click", function () {
                 _this._currentScene = config.PLAY;
