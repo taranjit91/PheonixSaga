@@ -10,11 +10,11 @@ var __extends = (this && this.__extends) || (function () {
 })();
 var scenes;
 (function (scenes) {
-    var Start = /** @class */ (function (_super) {
-        __extends(Start, _super);
+    var ChooseLevel = /** @class */ (function (_super) {
+        __extends(ChooseLevel, _super);
         // PUBLIC PROPERTIES
         // CONSTRUCTORS
-        function Start(assetManager, currentScene) {
+        function ChooseLevel(assetManager, currentScene) {
             var _this = _super.call(this) || this;
             _this._assetManager = assetManager;
             _this._currentScene = currentScene;
@@ -23,41 +23,39 @@ var scenes;
         }
         // PRIVATE METHODS
         // PUBLIC METHODS
-        Start.prototype.Start = function () {
+        ChooseLevel.prototype.Start = function () {
             this._bg = new objects.Background(this._assetManager, "defaultbg");
             this._welcomeLabel = new objects.Label("PHOENIX SAGA", "50px", "gameFont", "#b42e2e", 400, 40, true);
-            this._startButton = new objects.Button(this._assetManager, "startButton", 400, 150, true);
-            this._levelsButton = new objects.Button(this._assetManager, "levels", 400, 230, true);
-            this._tutorialButton = new objects.Button(this._assetManager, "tutorialButton", 400, 310, true);
-            this._exitButton = new objects.Button(this._assetManager, "exitButton", 400, 390, true);
+            this._level1Button = new objects.Button(this._assetManager, "levels", 400, 150, true);
+            this._bossLevelButton = new objects.Button(this._assetManager, "bosslevelButton", 400, 230, true);
+            this._backButton = new objects.Button(this._assetManager, "exitButton", 400, 310, true);
             this.Main();
         };
-        Start.prototype.Update = function () {
+        ChooseLevel.prototype.Update = function () {
             return this._currentScene;
         };
-        Start.prototype.Main = function () {
+        ChooseLevel.prototype.Main = function () {
             var _this = this;
             this.addChild(this._bg);
             this.addChild(this._welcomeLabel);
-            this.addChild(this._startButton);
-            this.addChild(this._levelsButton);
-            this.addChild(this._tutorialButton);
-            this.addChild(this._exitButton);
-            this._startButton.on("click", function () {
+            this.addChild(this._level1Button);
+            this.addChild(this._bossLevelButton);
+            this.addChild(this._backButton);
+            this._level1Button.on("click", function () {
+                _this._currentScene = config.PLAY;
+                _this.removeAllChildren();
+            });
+            this._bossLevelButton.on("click", function () {
+                _this._currentScene = config.LEVEL3;
+                _this.removeAllChildren();
+            });
+            this._backButton.on("click", function () {
                 _this._currentScene = config.START;
                 _this.removeAllChildren();
             });
-            this._levelsButton.on("click", function () {
-                _this._currentScene = config.CHOOSELEVEL;
-                _this.removeAllChildren();
-            });
-            this._tutorialButton.on("click", function () {
-                _this._currentScene = config.HOWTOPLAY;
-                _this.removeAllChildren();
-            });
         };
-        return Start;
+        return ChooseLevel;
     }(objects.Scene));
-    scenes.Start = Start;
+    scenes.ChooseLevel = ChooseLevel;
 })(scenes || (scenes = {}));
-//# sourceMappingURL=start.js.map
+//# sourceMappingURL=chooselevels.js.map

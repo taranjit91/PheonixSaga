@@ -4,12 +4,15 @@
     var canvas;
     var assetManager;
     var assetManifest = [
-        { id: "backButton", src: "./Assets/images/button_back.png" },
-        { id: "nextButton", src: "./Assets/images/button_next.png" },
-        { id: "tutorialButton", src: "./Assets/images/button_how-to-play.png" },
-        { id: "exitButton", src: "./Assets/images/button_exit.png" },
-        { id: "startButton", src: "./Assets/images/button_play.png" },
-        { id: "restartButton", src: "./Assets/images/button_play-again.png" },
+        { id: "backButton", src: "./Assets/images/back.png" },
+        { id: "nextButton", src: "./Assets/images/next.png" },
+        { id: "tutorialButton", src: "./Assets/images/tutorial.png" },
+        { id: "exitButton", src: "./Assets/images/exit.png" },
+        { id: "startButton", src: "./Assets/images/start.png" },
+        { id: "levels", src: "./Assets/images/levels.png" },
+        { id: "level1Button", src: "./Assets/images/level1.png" },
+        { id: "bosslevelButton", src: "./Assets/images/bosslevel.png" },
+        { id: "restartButton", src: "./Assets/images/pagain.png" },
         { id: "ocean", src: "./Assets/images/background/level1bg.jpg" },
         { id: "bullet", src: "./Assets/images/bullet.png" },
         { id: "monsterbird", src: "./Assets/images/monsterbird.png" },
@@ -64,6 +67,9 @@
                 break;
             case config.WIN:
                 currentScene = new scenes.Win(assetManager, currentState);
+                break;
+            case config.CHOOSELEVEL:
+                currentScene = new scenes.ChooseLevel(assetManager, currentState);
                 break;
             case config.END:
                 currentScene = new scenes.End(assetManager, currentState);
