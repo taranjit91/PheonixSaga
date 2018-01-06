@@ -191,7 +191,7 @@ module scenes {
                     console.log("Collision with " + other.name);
                     this._score += 100;
                     this._scoreLabel.text = "Score: " + this._score;
-                    if(this._score>=800){
+                    if(this._score>=400){
                       this._currentScene = config.LEVEL2;
                      // this._engineSound.stop();
                       this.removeAllChildren(); 

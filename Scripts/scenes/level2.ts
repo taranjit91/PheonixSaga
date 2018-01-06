@@ -18,6 +18,8 @@ module scenes {
     private _bulletNum: number;
     private _bulletCounter: number;
 
+    
+
     private _livesLabel: objects.Label;
     private _scoreLabel: objects.Label;
     private _bulletsCountLabel: objects.Label;
@@ -45,6 +47,8 @@ module scenes {
   
       // PUBLIC METHODS
       public Start():void {
+        this._lives = 5;
+      this._score = 0;
         this._bg = new objects.Background(this._assetManager,"level2bg",0);
         this._level2Label = new objects.Label("LEVEL 2", "40px", "Consolas", "#ffffff", 400, 20, true);
         this._backButton = new objects.Button(this._assetManager, "backButton", 400, 340, true);
@@ -165,7 +169,7 @@ module scenes {
       public Main():void {
   
         this.addChild(this._bg);
-        this.addChild(this._level2Label);
+       // this.addChild(this._level2Label);
 
   
         this.addChild(this._player);

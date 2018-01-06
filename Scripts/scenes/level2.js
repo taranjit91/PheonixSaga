@@ -25,6 +25,8 @@ var scenes;
         // PRIVATE METHODS
         // PUBLIC METHODS
         Level2.prototype.Start = function () {
+            this._lives = 5;
+            this._score = 0;
             this._bg = new objects.Background(this._assetManager, "level2bg", 0);
             this._level2Label = new objects.Label("LEVEL 2", "40px", "Consolas", "#ffffff", 400, 20, true);
             this._backButton = new objects.Button(this._assetManager, "backButton", 400, 340, true);
@@ -119,7 +121,7 @@ var scenes;
         Level2.prototype.Main = function () {
             var _this = this;
             this.addChild(this._bg);
-            this.addChild(this._level2Label);
+            // this.addChild(this._level2Label);
             this.addChild(this._player);
             this.addChild(this._monsterBird);
             this.addChild(this._livesLabel);
