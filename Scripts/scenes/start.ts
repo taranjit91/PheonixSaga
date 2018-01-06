@@ -8,7 +8,7 @@ module scenes {
     private _startButton:objects.Button;
     private _tutorialButton:objects.Button;
     private _exitButton:objects.Button;
-
+    private _instructionsButton:objects.Button;
 
     // PUBLIC PROPERTIES
 
@@ -29,6 +29,7 @@ module scenes {
       this._startButton = new objects.Button(this._assetManager, "startButton", 400, 150, true);
       this._tutorialButton = new objects.Button(this._assetManager, "tutorialButton", 400, 230, true);
       this._exitButton = new objects.Button(this._assetManager, "exitButton", 400, 310, true);
+      
       this.Main();
     }
 
@@ -48,6 +49,11 @@ module scenes {
 
       this._startButton.on("click", () => {
         this._currentScene = config.PLAY;
+        this.removeAllChildren();
+      });
+
+      this._tutorialButton.on("click", () => {
+        this._currentScene = config.HOWTOPLAY;
         this.removeAllChildren();
       });
     }

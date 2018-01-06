@@ -1,6 +1,7 @@
 var config;
 (function (config) {
     config.START = 0;
+    config.HOWTOPLAY = 5;
     config.PLAY = 1;
     config.LEVEL2 = 3;
     config.LEVEL3 = 4;
@@ -8,10 +9,10 @@ var config;
     var Screen = /** @class */ (function () {
         function Screen() {
         }
-        Screen.WIDTH = 736;
-        Screen.HEIGHT = 348;
-        Screen.CENTER_X = 378;
-        Screen.CENTER_Y = 174;
+        Screen.WIDTH = 800;
+        Screen.HEIGHT = 554;
+        Screen.CENTER_X = 400;
+        Screen.CENTER_Y = 277;
         return Screen;
     }());
     config.Screen = Screen;

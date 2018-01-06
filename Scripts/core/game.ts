@@ -73,6 +73,10 @@
       currentScene = new scenes.Level2(assetManager, currentState);
       break;
 
+      case config.HOWTOPLAY:
+      currentScene = new scenes.Instructions(assetManager, currentState);
+      break;
+
       case config.END:
       currentScene = new scenes.End(assetManager, currentState);
       break;

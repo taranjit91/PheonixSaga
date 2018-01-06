@@ -45,6 +45,10 @@ var scenes;
                 _this._currentScene = config.PLAY;
                 _this.removeAllChildren();
             });
+            this._tutorialButton.on("click", function () {
+                _this._currentScene = config.HOWTOPLAY;
+                _this.removeAllChildren();
+            });
         };
         return Start;
     }(objects.Scene));
