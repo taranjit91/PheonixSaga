@@ -25,7 +25,7 @@ var scenes;
         // PRIVATE METHODS
         // PUBLIC METHODS
         Level2.prototype.Start = function () {
-            this._bg = new objects.Background(this._assetManager, "level2bg");
+            this._bg = new objects.Background(this._assetManager, "level2bg", 0);
             this._level2Label = new objects.Label("LEVEL 2", "40px", "Consolas", "#ffffff", 400, 20, true);
             this._backButton = new objects.Button(this._assetManager, "backButton", 400, 340, true);
             this._player = new objects.Phoenix(this._assetManager);

@@ -52,7 +52,7 @@ module scenes {
       
       //this._engineSound = createjs.Sound.play("engine", 0, 0, 0, -1, 0.20, 0);
       this._player = new objects.Phoenix(this._assetManager);
-      this._background = new objects.Background(this._assetManager,"defaultbg");
+      this._background = new objects.Background(this._assetManager,"defaultbg", 0);
       this._monsterBird = new objects.MonsterBird(this._assetManager);
       this._obstacleNum = 2;
       this._obstacles = new Array<objects.Obstacle>();
