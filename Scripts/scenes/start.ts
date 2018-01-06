@@ -6,6 +6,7 @@ module scenes {
 
     private _welcomeLabel:objects.Label;
     private _startButton:objects.Button;
+    private _levelsButton:objects.Button;
     private _tutorialButton:objects.Button;
     private _exitButton:objects.Button;
     private _instructionsButton:objects.Button;
@@ -27,8 +28,9 @@ module scenes {
         
       this._welcomeLabel = new objects.Label("PHOENIX SAGA", "50px", "gameFont", "#b42e2e", 400, 40, true);
       this._startButton = new objects.Button(this._assetManager, "startButton", 400, 150, true);
-      this._tutorialButton = new objects.Button(this._assetManager, "tutorialButton", 400, 230, true);
-      this._exitButton = new objects.Button(this._assetManager, "exitButton", 400, 310, true);
+      this._levelsButton = new objects.Button(this._assetManager, "levels", 400, 230, true);      
+      this._tutorialButton = new objects.Button(this._assetManager, "tutorialButton", 400, 310, true);
+      this._exitButton = new objects.Button(this._assetManager, "exitButton", 400, 390, true);
       
       this.Main();
     }
@@ -44,11 +46,17 @@ module scenes {
 
 
       this.addChild(this._startButton);
+      this.addChild(this._levelsButton);
       this.addChild(this._tutorialButton);
       this.addChild(this._exitButton);
 
       this._startButton.on("click", () => {
-        this._currentScene = config.PLAY;
+        this._currentScene = config.START;
+        this.removeAllChildren();
+      });
+
+      this._levelsButton.on("click", () => {
+        this._currentScene = config.CHOOSELEVEL;
         this.removeAllChildren();
       });
 
