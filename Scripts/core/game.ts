@@ -11,7 +11,6 @@
     {id: "startButton", src:"./Assets/images/button_play.png"},
     {id: "restartButton", src:"./Assets/images/button_play-again.png"},
     {id: "ocean", src:"./Assets/images/background/level1bg.jpg"},
-    {id: "level3", src:"./Assets/images/level3.png"},
     
     {id: "bullet", src:"./Assets/images/bullet.png"},
     {id: "monsterbird", src:"./Assets/images/monsterbird.png"},
@@ -68,15 +67,11 @@
       break;
 
       case config.PLAY:
-      currentScene = new scenes.Play(assetManager, currentState);
+      currentScene = new scenes.Level3(assetManager, currentState);
       break;
 
       case config.LEVEL2:
       currentScene = new scenes.Level2(assetManager, currentState);
-      break;
-      
-      case config.LEVEL3:
-      currentScene = new scenes.Level3(assetManager, currentState);
       break;
 
       case config.HOWTOPLAY:

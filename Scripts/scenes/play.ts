@@ -5,7 +5,6 @@ module scenes {
 
     private _player:objects.Phoenix;
     private _background:objects.Background;
-    private _backgroundBuffer:objects.Background;
     private _monsterBird:objects.MonsterBird;
     private _obstacles:objects.Obstacle[];  
     private _obstacleNum:number;
@@ -53,8 +52,7 @@ module scenes {
       
       //this._engineSound = createjs.Sound.play("engine", 0, 0, 0, -1, 0.20, 0);
       this._player = new objects.Phoenix(this._assetManager);
-      this._background = new objects.Background(this._assetManager,"defaultbg", 0);
-      this._backgroundBuffer = new objects.Background(this._assetManager,"defaultbg", 800);
+      this._background = new objects.Background(this._assetManager,"defaultbg");
       this._monsterBird = new objects.MonsterBird(this._assetManager);
       this._obstacleNum = 2;
       this._obstacles = new Array<objects.Obstacle>();
@@ -80,13 +78,12 @@ module scenes {
     }
 
     public Update():number {
+      // SEAN Begin ----------------------------
       this._inputData = this._inputManager.GetInput();
-
-      this._background.update();
-      this._backgroundBuffer.update();
-
+      // SEAN End ------------------------------
       this._player.Update();
-            
+
+      // SEAN Begin ----------------------------
       this._player.UpdatePosition(this._inputData);
       if( this._player.TriggerFire(this._inputData) ) {
         this._bulletFire();
@@ -122,7 +119,6 @@ module scenes {
 
     public Main():void {
       this.addChild(this._background);
-      this.addChild(this._backgroundBuffer);
       this.addChild(this._monsterBird);
       this.addChild(this._player);
       
@@ -222,19 +218,19 @@ module scenes {
           //   this._scoreLabel.text = "Score: " + this._score;
           //   createjs.Sound.play("thunder", 0, 0, 0, 0, 0.5);
           // }
-            console.log(other.name);
+          console.log(other.name);
             if(other.name == "obstacle" || other.name == "monsterbird") 
             {
-              this._lives -= 1;
-              //other.Reset();
-              if(this._lives <= 0) {
-                this._currentScene = config.END;
-              //  this._engineSound.stop();
-                this.removeAllChildren();                
-              }
-              this._livesLabel.text = "Lives: " + this._lives;
+            this._lives -= 1;
+            //other.Reset();
+            if(this._lives <= 0) {
+              this._currentScene = config.END;
+            //  this._engineSound.stop();
+              this.removeAllChildren();                
             }
-            other.isColliding = true;
+            this._livesLabel.text = "Lives: " + this._lives;
+          }
+          other.isColliding = true;
           }
       }
       else 
