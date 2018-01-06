@@ -30,7 +30,8 @@ var scenes;
         Play.prototype.Start = function () {
             //this._engineSound = createjs.Sound.play("engine", 0, 0, 0, -1, 0.20, 0);
             this._player = new objects.Phoenix(this._assetManager);
-            this._background = new objects.Background(this._assetManager, "defaultbg");
+            this._background = new objects.Background(this._assetManager, "defaultbg", 0);
+            this._backgroundBuffer = new objects.Background(this._assetManager, "defaultbg", 800);
             this._monsterBird = new objects.MonsterBird(this._assetManager);
             this._obstacleNum = 2;
             this._obstacles = new Array();
@@ -50,11 +51,10 @@ var scenes;
         };
         Play.prototype.Update = function () {
             var _this = this;
-            // SEAN Begin ----------------------------
             this._inputData = this._inputManager.GetInput();
-            // SEAN End ------------------------------
+            this._background.update();
+            this._backgroundBuffer.update();
             this._player.Update();
-            // SEAN Begin ----------------------------
             this._player.UpdatePosition(this._inputData);
             if (this._player.TriggerFire(this._inputData)) {
                 this._bulletFire();
@@ -83,6 +83,7 @@ var scenes;
         };
         Play.prototype.Main = function () {
             this.addChild(this._background);
+            this.addChild(this._backgroundBuffer);
             this.addChild(this._monsterBird);
             this.addChild(this._player);
             for (var count = 0; count < this._bulletNum; count++) {

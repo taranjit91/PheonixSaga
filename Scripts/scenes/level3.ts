@@ -3,6 +3,7 @@ module scenes {
         // PRIVATE INSTANCE VARIABLES
         private _assetManager:createjs.LoadQueue;
         private _bg:objects.Background;
+        private _bgBuffer:objects.Background;
         private _level2Label:objects.Label;
         private _backButton:objects.Button;     
             
@@ -41,7 +42,8 @@ module scenes {
   
       // PUBLIC METHODS
       public Start():void {
-        this._bg = new objects.Background(this._assetManager,"level2bg");
+        this._bg = new objects.Background(this._assetManager,"level2bg", 0);
+        this._bgBuffer = new objects.Background(this._assetManager,"level2bg", 800);
         this._level2Label = new objects.Label("LEVEL 3", "40px", "gameFont", "#ffffff", 400, 20, true);
         this._backButton = new objects.Button(this._assetManager, "backButton", 400, 340, true);
         this._player = new objects.Phoenix(this._assetManager);
@@ -65,6 +67,10 @@ module scenes {
     // Start of Update()
     public Update():number {
         this._inputData = this._inputManager.GetInput();
+
+        this._bg.update();
+        this._bgBuffer.update();
+
         this._player.Update();
         this._monsterBoss.Update();
         this._player.UpdatePosition(this._inputData);
@@ -241,9 +247,9 @@ module scenes {
              this.removeAllChildren();
         }
     }
-    public Main():void {
-  
+    public Main():void {  
         this.addChild(this._bg);
+        this.addChild(this._bgBuffer);
         this.addChild(this._level2Label);
   
         this.addChild(this._player);

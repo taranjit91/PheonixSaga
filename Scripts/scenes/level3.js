@@ -25,7 +25,8 @@ var scenes;
         // PRIVATE METHODS
         // PUBLIC METHODS
         Level3.prototype.Start = function () {
-            this._bg = new objects.Background(this._assetManager, "level2bg");
+            this._bg = new objects.Background(this._assetManager, "level2bg", 0);
+            this._bgBuffer = new objects.Background(this._assetManager, "level2bg", 800);
             this._level2Label = new objects.Label("LEVEL 3", "40px", "gameFont", "#ffffff", 400, 20, true);
             this._backButton = new objects.Button(this._assetManager, "backButton", 400, 340, true);
             this._player = new objects.Phoenix(this._assetManager);
@@ -45,6 +46,8 @@ var scenes;
         Level3.prototype.Update = function () {
             var _this = this;
             this._inputData = this._inputManager.GetInput();
+            this._bg.update();
+            this._bgBuffer.update();
             this._player.Update();
             this._monsterBoss.Update();
             this._player.UpdatePosition(this._inputData);
@@ -186,6 +189,7 @@ var scenes;
         Level3.prototype.Main = function () {
             var _this = this;
             this.addChild(this._bg);
+            this.addChild(this._bgBuffer);
             this.addChild(this._level2Label);
             this.addChild(this._player);
             this.addChild(this._monsterBoss);
