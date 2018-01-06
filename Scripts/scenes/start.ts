@@ -2,6 +2,7 @@ module scenes {
   export class Start extends objects.Scene {
     // PRIVATE INSTANCE VARIABLES
     private _assetManager:createjs.LoadQueue;
+    private _bg:objects.Background;
 
     private _welcomeLabel:objects.Label;
     private _startButton:objects.Button;
@@ -22,10 +23,12 @@ module scenes {
 
     // PUBLIC METHODS
     public Start():void {
-      this._welcomeLabel = new objects.Label("Pheonix Saga", "40px", "Consolas", "#ffffff", 400, 100, true);
-      this._startButton = new objects.Button(this._assetManager, "startButton", 400, 200, true);
-      this._tutorialButton = new objects.Button(this._assetManager, "tutorialButton", 400, 300, true);
-      this._exitButton = new objects.Button(this._assetManager, "exitButton", 400, 400, true);
+      this._bg = new objects.Background(this._assetManager,"defaultbg");
+        
+      this._welcomeLabel = new objects.Label("PHOENIX SAGA", "50px", "gameFont", "#b42e2e", 400, 40, true);
+      this._startButton = new objects.Button(this._assetManager, "startButton", 400, 150, true);
+      this._tutorialButton = new objects.Button(this._assetManager, "tutorialButton", 400, 230, true);
+      this._exitButton = new objects.Button(this._assetManager, "exitButton", 400, 310, true);
       this.Main();
     }
 
@@ -35,6 +38,7 @@ module scenes {
 
     public Main():void {
 
+      this.addChild(this._bg);
       this.addChild(this._welcomeLabel);
 
 

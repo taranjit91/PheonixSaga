@@ -15,6 +15,7 @@
     {id: "monsterbird", src:"./Assets/images/monsterbird.png"},
     {id: "obstacle", src:"./Assets/images/obstacle.png"},
     {id: "engine", src:"./Assets/audio/engine.ogg"},
+    {id: "defaultbg", src:"./Assets/images/background/level1bg_new.png"},
     {id: "level2bg", src:"./Assets/images/background/level2bg.jpg"},
     {id: "phoenix_play", src:"./Assets/images/pheonix_images/p1.png"},
     {id: "powerBullet", src:"./Assets/images/pb1.png"},

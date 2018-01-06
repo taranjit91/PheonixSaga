@@ -8,9 +8,24 @@
   <link rel="stylesheet" href="./Content/game.css">
 </head>
 <body>
-  <canvas id="canvas" width="736" height="348" ></canvas>
+
+ 
+    <!--  <div id="start" width="736" height="348">
+          <h1>Game Title</h1>
+          <input id="StartButton" type="button" value="Start"/>
+          </div>-->
+  
+
+  <canvas id="canvas" width="800" height="554" ></canvas>
 
   <!-- JavaScript Section -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script>
+      $("#StartButton").click(function () {
+          $("#SplashScreen").hide();
+          $("#canvas").show();
+      });
+  </script>
   <script src="./Scripts/lib/EaselJS/lib/easeljs-0.8.2.min.js"></script>
   <script src="./Scripts/lib/TweenJS/lib/tweenjs-0.6.2.min.js"></script>
   <script src="./Scripts/lib/SoundJS/lib/soundjs-0.6.2.min.js"></script>
