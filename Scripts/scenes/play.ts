@@ -5,11 +5,13 @@ module scenes {
 
     private _player:objects.Phoenix;
     private _background:objects.Background;
+    private _background1:objects.Background;
     private _monsterBird:objects.MonsterBird;
-    private _obstacles:objects.Obstacle[];  
-    private _obstacleNum:number;
+    // private _obstacles:objects.Obstacle[];  
+    // private _obstacleNum:number;
 
     private _livesLabel: objects.Label;
+    private _ashesLabel: objects.Label;
     private _scoreLabel: objects.Label;
     private _bulletsCountLabel: objects.Label;
 
@@ -52,10 +54,11 @@ module scenes {
       
       //this._engineSound = createjs.Sound.play("engine", 0, 0, 0, -1, 0.20, 0);
       this._player = new objects.Phoenix(this._assetManager);
-      this._background = new objects.Background(this._assetManager,"defaultbg");
+      this._background = new objects.Background(this._assetManager,"level2bg",0);
+      this._background1 = new objects.Background(this._assetManager,"level2bg",800);
       this._monsterBird = new objects.MonsterBird(this._assetManager);
-      this._obstacleNum = 2;
-      this._obstacles = new Array<objects.Obstacle>();
+      //this._obstacleNum = 2;
+      //this._obstacles = new Array<objects.Obstacle>();
       
       this._bulletNum = 50;
       this._bullets = new Array<objects.Bullet>();
@@ -73,6 +76,7 @@ module scenes {
       
       this._livesLabel = new objects.Label("Lives: " + this._lives, "30px", "gameFont", "#b42e2e", 10, 10, false);        
       this._scoreLabel = new objects.Label("Score: " + this._score, "30px", "gameFont", "#b42e2e", 550, 10, false);
+      this._ashesLabel = new objects.Label("Ashes: 0%" , "30px", "gameFont", "#b42e2e", 250, 10, false);        
       
       this.Main();
     }
@@ -80,7 +84,8 @@ module scenes {
     public Update():number {
       // SEAN Begin ----------------------------
       this._inputData = this._inputManager.GetInput();
-      // SEAN End ------------------------------
+      this._background.update();
+      this._background1.update();
       this._player.Update();
 
       // SEAN Begin ----------------------------
@@ -109,16 +114,17 @@ module scenes {
         //this._checkCollisionsBullet(bullet);
       });
 
-      this._obstacles.forEach(obstacle => {
-        obstacle.Update();
-        this._checkCollision(obstacle);
-      });
+      // this._obstacles.forEach(obstacle => {
+      //   obstacle.Update();
+      //   this._checkCollision(obstacle);
+      // });
 
       return this._currentScene;
     }
 
     public Main():void {
       this.addChild(this._background);
+      this.addChild(this._background1);
       this.addChild(this._monsterBird);
       this.addChild(this._player);
       
@@ -132,12 +138,13 @@ module scenes {
         this.addChild(this._enemyBullets[counte]);
       }
       
-      for (let count = 0; count < this._obstacleNum; count++) {
-        this._obstacles[count] = new objects.Obstacle(this._assetManager);
-        this.addChild(this._obstacles[count]);
-      }
+      // for (let count = 0; count < this._obstacleNum; count++) {
+      //   this._obstacles[count] = new objects.Obstacle(this._assetManager);
+      //   this.addChild(this._obstacles[count]);
+      // }
 
       this.addChild(this._livesLabel);
+      this.addChild(this._ashesLabel);
       this.addChild(this._scoreLabel);
     }
 
@@ -221,6 +228,7 @@ module scenes {
           console.log(other.name);
             if(other.name == "obstacle" || other.name == "monsterbird") 
             {
+              console.log(this._lives+" >> ");
             this._lives -= 1;
             //other.Reset();
             if(this._lives <= 0) {

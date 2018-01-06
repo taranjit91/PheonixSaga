@@ -18,11 +18,18 @@ module scenes {
     private _bulletNum: number;
     private _bulletCounter: number;
 
+    private _livesLabel: objects.Label;
+    private _scoreLabel: objects.Label;
+    private _bulletsCountLabel: objects.Label;
+    private _ashesLabel: objects.Label;
 
     private _powerbullets: objects.PowerBullet[];
     private _powerbulletNum: number;
     private _powerbulletCounter: number;
 
+    private _lives: number;
+    private _score: number;
+    private _bulletsCount: number;
   
       // PUBLIC PROPERTIES
   
@@ -38,7 +45,7 @@ module scenes {
   
       // PUBLIC METHODS
       public Start():void {
-        this._bg = new objects.Background(this._assetManager,"level2bg");
+        this._bg = new objects.Background(this._assetManager,"level2bg",0);
         this._level2Label = new objects.Label("LEVEL 2", "40px", "Consolas", "#ffffff", 400, 20, true);
         this._backButton = new objects.Button(this._assetManager, "backButton", 400, 340, true);
         this._player = new objects.Phoenix(this._assetManager);
@@ -51,6 +58,11 @@ module scenes {
         this._powerbulletNum = 5;
         this._powerbullets = new Array<objects.PowerBullet>();
         this._powerbulletCounter = 0;
+
+        this._livesLabel = new objects.Label("Lives: " + this._lives, "30px", "gameFont", "#b42e2e", 10, 10, false);        
+        this._scoreLabel = new objects.Label("Score: " + this._score, "30px", "gameFont", "#b42e2e", 550, 10, false);
+        this._ashesLabel = new objects.Label("Ashes: 20%" , "30px", "gameFont", "#b42e2e", 250, 10, false);
+        
         
         this.Main();
       }
@@ -154,9 +166,13 @@ module scenes {
   
         this.addChild(this._bg);
         this.addChild(this._level2Label);
+
   
         this.addChild(this._player);
         this.addChild(this._monsterBird);
+        this.addChild(this._livesLabel);
+        this.addChild(this._ashesLabel);      
+        this.addChild(this._scoreLabel);
         for (let count = 0; count < this._bulletNum; count++) {
           this._bullets[count] = new objects.Bullet(this._assetManager,"bullet");
           this.addChild(this._bullets[count]);

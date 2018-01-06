@@ -12,12 +12,29 @@ var objects;
 (function (objects) {
     var Background = /** @class */ (function (_super) {
         __extends(Background, _super);
-        // PRIVATE INSTANCE VARIABLES
         // PUBLIC PROPERTIES
         // CONSTRUCTORS
-        function Background(assetManager, name) {
-            return _super.call(this, assetManager.getResult(name)) || this;
+        function Background(assetManager, name, offset, scrollSpeed) {
+            if (scrollSpeed === void 0) { scrollSpeed = 3; }
+            var _this = _super.call(this, assetManager.getResult(name)) || this;
+            _this._dx = scrollSpeed;
+            _this._offset = offset;
+            _this.start();
+            return _this;
         }
+        Background.prototype.start = function () {
+            this.x = this._offset;
+        };
+        Background.prototype.update = function () {
+            this.x -= this._dx;
+            this._reset();
+        };
+        // PRIVATE METHODS
+        Background.prototype._reset = function () {
+            if (this.x <= -790) {
+                this.x = 790;
+            }
+        };
         return Background;
     }(createjs.Bitmap));
     objects.Background = Background;

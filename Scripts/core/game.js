@@ -57,10 +57,13 @@
                 currentScene = new scenes.Start(assetManager, currentState);
                 break;
             case config.PLAY:
-                currentScene = new scenes.Level3(assetManager, currentState);
+                currentScene = new scenes.Play(assetManager, currentState);
                 break;
             case config.LEVEL2:
                 currentScene = new scenes.Level2(assetManager, currentState);
+                break;
+            case config.LEVEL3:
+                currentScene = new scenes.Level3(assetManager, currentState);
                 break;
             case config.HOWTOPLAY:
                 currentScene = new scenes.Instructions(assetManager, currentState);

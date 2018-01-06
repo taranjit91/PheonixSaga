@@ -12,7 +12,7 @@ module config {
     public static WIDTH: number = 800;
     public static HEIGHT: number = 554;
     public static CENTER_X: number = 400;
-    public static CENTER_Y: number = 277;
+    public static CENTER_Y: number = 200;
   }
 }
 

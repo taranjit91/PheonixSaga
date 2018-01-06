@@ -25,7 +25,7 @@ var scenes;
         // PRIVATE METHODS
         // PUBLIC METHODS
         Level2.prototype.Start = function () {
-            this._bg = new objects.Background(this._assetManager, "level2bg");
+            this._bg = new objects.Background(this._assetManager, "level2bg", 0);
             this._level2Label = new objects.Label("LEVEL 2", "40px", "Consolas", "#ffffff", 400, 20, true);
             this._backButton = new objects.Button(this._assetManager, "backButton", 400, 340, true);
             this._player = new objects.Phoenix(this._assetManager);
@@ -36,6 +36,9 @@ var scenes;
             this._powerbulletNum = 5;
             this._powerbullets = new Array();
             this._powerbulletCounter = 0;
+            this._livesLabel = new objects.Label("Lives: " + this._lives, "30px", "gameFont", "#b42e2e", 10, 10, false);
+            this._scoreLabel = new objects.Label("Score: " + this._score, "30px", "gameFont", "#b42e2e", 550, 10, false);
+            this._ashesLabel = new objects.Label("Ashes: 20%", "30px", "gameFont", "#b42e2e", 250, 10, false);
             this.Main();
         };
         Level2.prototype.Update = function () {
@@ -119,6 +122,9 @@ var scenes;
             this.addChild(this._level2Label);
             this.addChild(this._player);
             this.addChild(this._monsterBird);
+            this.addChild(this._livesLabel);
+            this.addChild(this._ashesLabel);
+            this.addChild(this._scoreLabel);
             for (var count = 0; count < this._bulletNum; count++) {
                 this._bullets[count] = new objects.Bullet(this._assetManager, "bullet");
                 this.addChild(this._bullets[count]);

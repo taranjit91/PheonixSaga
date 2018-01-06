@@ -24,7 +24,7 @@ var scenes;
         // PRIVATE METHODS
         // PUBLIC METHODS
         End.prototype.Start = function () {
-            this._bg = new objects.Background(this._assetManager, "defaultbg");
+            this._bg = new objects.Background(this._assetManager, "defaultbg", 0);
             this._gameOverLabel = new objects.Label("GAME OVER", "40px", "gameFont", "#b42e2e", 400, 200, true);
             this._backButton = new objects.Button(this._assetManager, "backButton", 400, 340, true);
             this.Main();

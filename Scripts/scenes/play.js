@@ -30,10 +30,11 @@ var scenes;
         Play.prototype.Start = function () {
             //this._engineSound = createjs.Sound.play("engine", 0, 0, 0, -1, 0.20, 0);
             this._player = new objects.Phoenix(this._assetManager);
-            this._background = new objects.Background(this._assetManager, "defaultbg");
+            this._background = new objects.Background(this._assetManager, "level2bg", 0);
+            this._background1 = new objects.Background(this._assetManager, "level2bg", 800);
             this._monsterBird = new objects.MonsterBird(this._assetManager);
-            this._obstacleNum = 2;
-            this._obstacles = new Array();
+            //this._obstacleNum = 2;
+            //this._obstacles = new Array<objects.Obstacle>();
             this._bulletNum = 50;
             this._bullets = new Array();
             this._bulletCounter = 0;
@@ -46,13 +47,15 @@ var scenes;
             this._score = 0;
             this._livesLabel = new objects.Label("Lives: " + this._lives, "30px", "gameFont", "#b42e2e", 10, 10, false);
             this._scoreLabel = new objects.Label("Score: " + this._score, "30px", "gameFont", "#b42e2e", 550, 10, false);
+            this._ashesLabel = new objects.Label("Ashes: 0%", "30px", "gameFont", "#b42e2e", 250, 10, false);
             this.Main();
         };
         Play.prototype.Update = function () {
             var _this = this;
             // SEAN Begin ----------------------------
             this._inputData = this._inputManager.GetInput();
-            // SEAN End ------------------------------
+            this._background.update();
+            this._background1.update();
             this._player.Update();
             // SEAN Begin ----------------------------
             this._player.UpdatePosition(this._inputData);
@@ -75,14 +78,15 @@ var scenes;
                 enemyBullet.Update();
                 //this._checkCollisionsBullet(bullet);
             });
-            this._obstacles.forEach(function (obstacle) {
-                obstacle.Update();
-                _this._checkCollision(obstacle);
-            });
+            // this._obstacles.forEach(obstacle => {
+            //   obstacle.Update();
+            //   this._checkCollision(obstacle);
+            // });
             return this._currentScene;
         };
         Play.prototype.Main = function () {
             this.addChild(this._background);
+            this.addChild(this._background1);
             this.addChild(this._monsterBird);
             this.addChild(this._player);
             for (var count = 0; count < this._bulletNum; count++) {
@@ -93,11 +97,12 @@ var scenes;
                 this._enemyBullets[counte] = new objects.EnemyBullet(this._assetManager);
                 this.addChild(this._enemyBullets[counte]);
             }
-            for (var count = 0; count < this._obstacleNum; count++) {
-                this._obstacles[count] = new objects.Obstacle(this._assetManager);
-                this.addChild(this._obstacles[count]);
-            }
+            // for (let count = 0; count < this._obstacleNum; count++) {
+            //   this._obstacles[count] = new objects.Obstacle(this._assetManager);
+            //   this.addChild(this._obstacles[count]);
+            // }
             this.addChild(this._livesLabel);
+            this.addChild(this._ashesLabel);
             this.addChild(this._scoreLabel);
         };
         Play.prototype._bulletFire = function () {
@@ -164,6 +169,7 @@ var scenes;
                     // }
                     console.log(other.name);
                     if (other.name == "obstacle" || other.name == "monsterbird") {
+                        console.log(this._lives + " >> ");
                         this._lives -= 1;
                         //other.Reset();
                         if (this._lives <= 0) {
