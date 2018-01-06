@@ -8,6 +8,8 @@ module scenes {
       private _gameControlsTitleLabel:objects.Label;
       private _descriptionLabel:objects.Label;
       private _gameControlsDescLabel:objects.Label;
+
+      private _back:objects.Button;
       // PUBLIC PROPERTIES
   
       // CONSTRUCTORS
@@ -27,6 +29,8 @@ module scenes {
         this._descriptionLabel = new objects.Label("\n\nThe goal is to play for Phoenix, \ncollect ashes and submit it to sun", "20px", "gameFont", "#333333", 600, 110, true);
         this._gameControlsTitleLabel = new objects.Label("GAME CONTROLS", "35px", "gameFont", "#b42e2e", 400, 200, true);
         this._gameControlsDescLabel= new objects.Label("\n\n\u2022    Use arrow keys for navigation. \n\u2022    Use space bar to shoot enemy.\n\u2022    Use Z to use power bullets.", "20px", "gameFont", "#333333", 760, 280, true);
+        
+        this._back = new objects.Button(this._assetManager, "backButton", 400, 450, true);
         this.Main();
       }
   
@@ -41,6 +45,12 @@ module scenes {
         this.addChild(this._descriptionLabel);
         this.addChild(this._gameControlsTitleLabel);
         this.addChild(this._gameControlsDescLabel);
+        this.addChild(this._back);
+
+        this._back.on("click", () => {
+            this._currentScene = config.START;
+            this.removeAllChildren();
+          });
       }
     }
   }
