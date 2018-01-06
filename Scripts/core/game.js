@@ -19,6 +19,7 @@
         { id: "phoenix_play", src: "./Assets/images/pheonix_images/p1.png" },
         { id: "powerBullet", src: "./Assets/images/pb1.png" },
         { id: "enemy1", src: "./Assets/images/enemy1.png" },
+        { id: "enemyBoss", src: "./Assets/images/enemyboss.png" },
     ];
     var currentScene;
     var currentState;
@@ -52,7 +53,7 @@
                 currentScene = new scenes.Start(assetManager, currentState);
                 break;
             case config.PLAY:
-                currentScene = new scenes.Level2(assetManager, currentState);
+                currentScene = new scenes.Level3(assetManager, currentState);
                 break;
             case config.LEVEL2:
                 currentScene = new scenes.Level2(assetManager, currentState);
