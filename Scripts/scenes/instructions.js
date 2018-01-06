@@ -24,7 +24,7 @@ var scenes;
         // PRIVATE METHODS
         // PUBLIC METHODS
         Instructions.prototype.Start = function () {
-            this._bg = new objects.Background(this._assetManager, "defaultbg");
+            this._bg = new objects.Background(this._assetManager, "defaultbg", 0);
             this._titleLabel = new objects.Label("HOW TO PLAY", "40px", "gameFont", "#b42e2e", 400, 40, true);
             this._descriptionLabel = new objects.Label("\n\nThe goal is to play for Phoenix, \ncollect ashes and submit it to sun", "20px", "gameFont", "#333333", 600, 110, true);
             this._gameControlsTitleLabel = new objects.Label("GAME CONTROLS", "35px", "gameFont", "#b42e2e", 400, 200, true);

@@ -20,7 +20,7 @@ module scenes {
   
       // PUBLIC METHODS
       public Start():void {
-        this._bg = new objects.Background(this._assetManager,"defaultbg");
+        this._bg = new objects.Background(this._assetManager,"defaultbg",0);
         
         this._gameOverLabel = new objects.Label("YOU WON", "50px","gameFont", "#b42e2e", 400, 200, true);
         this._backButton = new objects.Button(this._assetManager, "restartButton", 400, 340, true);

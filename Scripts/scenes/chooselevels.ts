@@ -22,7 +22,7 @@ module scenes {
   
       // PUBLIC METHODS
       public Start():void {
-        this._bg = new objects.Background(this._assetManager,"defaultbg");
+        this._bg = new objects.Background(this._assetManager,"defaultbg",0);
           
         this._welcomeLabel = new objects.Label("PHOENIX SAGA", "50px", "gameFont", "#b42e2e", 400, 40, true);
         this._level1Button = new objects.Button(this._assetManager, "levels", 400, 150, true);
