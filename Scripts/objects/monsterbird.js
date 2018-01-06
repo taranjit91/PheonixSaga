@@ -14,17 +14,18 @@ var objects;
         __extends(MonsterBird, _super);
         // CONSTRUCTORS
         function MonsterBird(assetManager) {
-            var _this = _super.call(this, assetManager, "monsterbird") || this;
+            var _this = _super.call(this, assetManager, "enemy1") || this;
             _this.Start();
             return _this;
         }
         // PRIVATE METHODS
         MonsterBird.prototype._reset = function () {
-            this.y = -this.height;
-            this.x = (Math.random() * (800 - this.width)) + this.halfWidth;
+            // this.y = -this.height;
+            this.y = Math.random() * this.halfHeight;
+            this.x = (Math.random() * (760 - this.width)) + this.halfWidth;
         };
         MonsterBird.prototype._checkBounds = function () {
-            if (this.y >= 600 + this.height) {
+            if (this.x <= -200 + this.width) {
                 this._reset();
             }
         };
@@ -33,15 +34,16 @@ var objects;
         };
         // PUBLIC METHODS
         MonsterBird.prototype.Start = function () {
-            this.verticalSpeed = 2;
+            this.horizontalSpeed = 2;
             this._reset();
             this.bulletSpawn = new createjs.Point(this.y - 35, this.x);
+            this.powerBulletSpawn = new createjs.Point(this.y - 35, this.x);
             this._bulletTrigger = false;
             this._bulletTriggerCount = 0;
             this._bulletTriggerPoint = 50;
         };
         MonsterBird.prototype._updatePosition = function () {
-            this.y += this.verticalSpeed;
+            this.x -= this.horizontalSpeed;
             this.position.x = this.x;
             this.position.y = this.y;
         };

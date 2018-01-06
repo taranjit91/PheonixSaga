@@ -84,6 +84,7 @@ module core{
                 case config.KeyCode.KEYCODE_C:
                 this.inputdata.button4 = true;
                 break;
+                
             }
             this.SetInputData(this.inputdata);
         }

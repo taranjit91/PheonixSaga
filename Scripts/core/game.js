@@ -15,6 +15,10 @@
         { id: "monsterbird", src: "./Assets/images/monsterbird.png" },
         { id: "obstacle", src: "./Assets/images/obstacle.png" },
         { id: "engine", src: "./Assets/audio/engine.ogg" },
+        { id: "level2bg", src: "./Assets/images/background/level2bg.jpg" },
+        { id: "phoenix_play", src: "./Assets/images/pheonix_images/p1.png" },
+        { id: "powerBullet", src: "./Assets/images/pb1.png" },
+        { id: "enemy1", src: "./Assets/images/enemy1.png" },
     ];
     var currentScene;
     var currentState;
@@ -48,7 +52,7 @@
                 currentScene = new scenes.Start(assetManager, currentState);
                 break;
             case config.PLAY:
-                currentScene = new scenes.Play(assetManager, currentState);
+                currentScene = new scenes.Level2(assetManager, currentState);
                 break;
             case config.LEVEL2:
                 currentScene = new scenes.Level2(assetManager, currentState);

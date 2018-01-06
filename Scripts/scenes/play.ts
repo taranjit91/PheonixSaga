@@ -123,7 +123,7 @@ module scenes {
       this.addChild(this._plane);
       
       for (let count = 0; count < this._bulletNum; count++) {
-        this._bullets[count] = new objects.Bullet(this._assetManager);
+        this._bullets[count] = new objects.Bullet(this._assetManager,"bullet");
         this.addChild(this._bullets[count]);
       }
 
@@ -221,7 +221,7 @@ module scenes {
             if(other.name == "obstacle" || other.name == "monsterbird") 
             {
             this._lives -= 1;
-            other.Reset();
+            //other.Reset();
             if(this._lives <= 0) {
               this._currentScene = config.END;
             //  this._engineSound.stop();

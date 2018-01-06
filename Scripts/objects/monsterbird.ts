@@ -7,21 +7,22 @@ module objects {
 
       // PUBLIC PROPERTIES
       bulletSpawn:createjs.Point;
-
+      powerBulletSpawn:createjs.Point;
       // CONSTRUCTORS
       constructor(assetManager: createjs.LoadQueue) {
-        super(assetManager, "monsterbird");
+        super(assetManager, "enemy1");
   
         this.Start();
       }
       // PRIVATE METHODS
       private _reset():void {
-        this.y = -this.height;
-        this.x = (Math.random() * (800-this.width))+this.halfWidth;
+       // this.y = -this.height;
+       this.y=Math.random() * this.halfHeight;
+        this.x = (Math.random() * (760-this.width))+this.halfWidth;
       }
   
       private _checkBounds():void {
-        if(this.y >= 600 + this.height) {
+        if(this.x <= -200 + this.width) {
           this._reset();
         }
       }
@@ -31,17 +32,18 @@ module objects {
       }
       // PUBLIC METHODS
       public Start():void {
-        this.verticalSpeed = 2;
+        this.horizontalSpeed = 2;
         this._reset();
 
         this.bulletSpawn = new createjs.Point(this.y - 35, this.x);
+        this.powerBulletSpawn = new createjs.Point(this.y - 35, this.x);
         this._bulletTrigger = false;
         this._bulletTriggerCount = 0;
         this._bulletTriggerPoint = 50;
       }
   
       private _updatePosition():void {
-        this.y += this.verticalSpeed;
+        this.x -= this.horizontalSpeed;
         this.position.x =this.x;
         this.position.y = this.y;
       }

@@ -1,5 +1,5 @@
 module objects {
-    export class Bullet extends objects.GameObject {
+    export class PowerBullet extends objects.GameObject {
       // PRIVATE INSTANCE VARIABLES
       // PUBLIC PROPERTIES
       // CONSTRUCTORS

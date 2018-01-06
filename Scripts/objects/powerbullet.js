@@ -10,47 +10,47 @@ var __extends = (this && this.__extends) || (function () {
 })();
 var objects;
 (function (objects) {
-    var Bullet = /** @class */ (function (_super) {
-        __extends(Bullet, _super);
+    var PowerBullet = /** @class */ (function (_super) {
+        __extends(PowerBullet, _super);
         // PRIVATE INSTANCE VARIABLES
         // PUBLIC PROPERTIES
         // CONSTRUCTORS
-        function Bullet(assetManager, name) {
+        function PowerBullet(assetManager, name) {
             var _this = _super.call(this, assetManager, name) || this;
             _this.Start();
             return _this;
         }
         // PRIVATE METHODS
-        Bullet.prototype._reset = function () {
+        PowerBullet.prototype._reset = function () {
             //this.y = -1000;
             this.x = 1000;
         };
-        Bullet.prototype._checkBounds = function () {
+        PowerBullet.prototype._checkBounds = function () {
             if (this.x <= 0 + this.width) {
                 this._reset();
             }
         };
         // PUBLIC METHODS
-        Bullet.prototype.Start = function () {
+        PowerBullet.prototype.Start = function () {
             this.horizontalSpeed = 10;
             this._reset();
         };
-        Bullet.prototype.Reset = function () {
+        PowerBullet.prototype.Reset = function () {
             this._reset();
         };
-        Bullet.prototype._updatePosition = function () {
+        PowerBullet.prototype._updatePosition = function () {
             this.x += this.horizontalSpeed;
             this.position.x = this.x;
             this.position.y = this.y;
         };
-        Bullet.prototype.Update = function () {
+        PowerBullet.prototype.Update = function () {
             if (this.x > 0) {
                 this._updatePosition();
                 this._checkBounds();
             }
         };
-        return Bullet;
+        return PowerBullet;
     }(objects.GameObject));
-    objects.Bullet = Bullet;
+    objects.PowerBullet = PowerBullet;
 })(objects || (objects = {}));
-//# sourceMappingURL=bullets.js.map
+//# sourceMappingURL=powerbullet.js.map

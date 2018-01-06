@@ -86,7 +86,7 @@ var scenes;
             this.addChild(this._monsterBird);
             this.addChild(this._plane);
             for (var count = 0; count < this._bulletNum; count++) {
-                this._bullets[count] = new objects.Bullet(this._assetManager);
+                this._bullets[count] = new objects.Bullet(this._assetManager, "bullet");
                 this.addChild(this._bullets[count]);
             }
             for (var counte = 0; counte < this._enemyBulletNum; counte++) {
@@ -164,7 +164,7 @@ var scenes;
                     console.log(other.name);
                     if (other.name == "obstacle" || other.name == "monsterbird") {
                         this._lives -= 1;
-                        other.Reset();
+                        //other.Reset();
                         if (this._lives <= 0) {
                             this._currentScene = config.END;
                             //  this._engineSound.stop();
