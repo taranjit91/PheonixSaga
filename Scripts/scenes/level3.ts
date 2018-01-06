@@ -156,8 +156,8 @@ module scenes {
   
     private _createBossHPBar():void {
         this._monsterBossHPBar = new createjs.Shape();
-        this._monsterBossHPBar.x = this.getBounds().width * 0.5 - 100;
-        this._monsterBossHPBar.y = this.getBounds().height - 65;
+        this._monsterBossHPBar.x = config.Screen.WIDTH - 350;
+        this._monsterBossHPBar.y = config.Screen.HEIGHT - 25;
         this._monsterBossHPBar.graphics.setStrokeStyle(2);
         this._monsterBossHPBar.graphics.beginStroke('#000');
         this._monsterBossHPBar.graphics.drawRect(0, 0, 300, 20);
