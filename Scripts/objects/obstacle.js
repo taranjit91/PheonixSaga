@@ -12,7 +12,6 @@ var objects;
 (function (objects) {
     var Obstacle = /** @class */ (function (_super) {
         __extends(Obstacle, _super);
-        // PRIVATE INSTANCE VARIABLES
         // PUBLIC PROPERTIES
         // CONSTRUCTORS
         function Obstacle(assetManager) {
@@ -20,37 +19,54 @@ var objects;
             _this.Start();
             return _this;
         }
-        // PRIVATE METHODS
-        Obstacle.prototype._reset = function () {
-            this.y = -this.height;
-            this.x = (Math.random() * (640 - this.width)) + this.halfWidth;
-            this.verticalSpeed = (Math.random() * 5) + 5;
-            this.horizontalSpeed = (Math.random() * 4) - 2;
-        };
-        Obstacle.prototype._checkBounds = function () {
-            if (this.y >= 600 + this.height) {
-                this._reset();
-            }
-        };
-        // PUBLIC METHODS
         Obstacle.prototype.Start = function () {
             this._reset();
         };
-        Obstacle.prototype._updatePosition = function () {
-            this.y += this.verticalSpeed;
-            this.x += this.horizontalSpeed;
-            this.position.x = this.x;
-            this.position.y = this.y;
-        };
         Obstacle.prototype.Update = function () {
-            this._updatePosition();
+            this.update();
+        };
+        Obstacle.prototype.update = function () {
+            this.x -= this._dx;
+            if (this._startY < config.Screen.CENTER_Y)
+                this.y += this._dy;
+            else
+                this.y -= this._dy;
             this._checkBounds();
         };
-        Obstacle.prototype.Reset = function () {
+        Obstacle.prototype._reset = function () {
+            // set it to invisible while moving, to prevent
+            // blinking/flickering effect where it jumps to the side
+            this.alpha = 0;
+            this.isColliding = false;
+            this._dx = Math.floor((Math.random() * 5) + 8); // vertical drispeedft
+            this._dy = Math.floor((Math.random() * 3) + 1); // horizontal drift
+            this.x = config.Screen.WIDTH;
+            // get a random y location
+            this.y = Math.floor((Math.random() * ((config.Screen.HEIGHT - (this.height * 0.5)) - (this.height * 0.5))) + (this.height * 0.5));
+            this._startY = this.y;
+            this.alpha = 1;
+        };
+        Obstacle.prototype.destroy = function () {
             this._reset();
+        };
+        // PRIVATE METHODS ++++++++++++++++++++++++++++++++++++++++++++
+        Obstacle.prototype._checkBounds = function () {
+            if ((this.y >= (config.Screen.HEIGHT - 50 - (this.height * 0.5)))
+                || (this.x <= (0 - (this.width * 0.5)))) {
+                this._reset();
+            }
         };
         return Obstacle;
     }(objects.GameObject));
     objects.Obstacle = Obstacle;
 })(objects || (objects = {}));
+//     public Update():void {
+//       this._updatePosition();
+//       this._checkBounds();
+//     }
+//     public Reset(): void {
+//       this._reset();
+//     }
+//   }
+// } 
 //# sourceMappingURL=obstacle.js.map

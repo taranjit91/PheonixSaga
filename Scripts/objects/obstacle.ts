@@ -1,6 +1,9 @@
 module objects {
     export class Obstacle extends objects.GameObject {
-      // PRIVATE INSTANCE VARIABLES
+      // PRIVATE  VARIABLES
+      private _dy: number;
+      private _dx: number;
+      private _startY: number;
       // PUBLIC PROPERTIES
       // CONSTRUCTORS
       constructor(assetManager: createjs.LoadQueue) {
@@ -8,39 +11,61 @@ module objects {
   
         this.Start();
       }
+      public  Start():void
+      {
+        this._reset();
+      }
+      public  Update():void
+      {
+      this.update();
       
-      // PRIVATE METHODS
-      private _reset():void {
-        this.y = -this.height;
-        this.x = (Math.random() * (640-this.width))+this.halfWidth;
-        this.verticalSpeed = (Math.random() * 5) + 5;
-        this.horizontalSpeed = (Math.random() *4) -2;
       }
-  
-      private _checkBounds():void {
-        if(this.y >= 600 + this.height) {
-          this._reset();
-        }
-      }
-  
-      // PUBLIC METHODS
-      public Start():void {
-        this._reset();
-      }
-  
-      private _updatePosition():void {
-        this.y += this.verticalSpeed;
-        this.x += this.horizontalSpeed;
-        this.position.x =this.x;
-        this.position.y = this.y;
-      }
-  
-      public Update():void {
-        this._updatePosition();
+      public update(): void {
+       
+        this.x -= this._dx;
+        if (this._startY < config.Screen.CENTER_Y)
+            this.y += this._dy;
+        else
+            this.y -= this._dy;
         this._checkBounds();
-      }
-      public Reset(): void {
-        this._reset();
-      }
     }
-  }
+
+    public _reset(): void {
+        // set it to invisible while moving, to prevent
+        // blinking/flickering effect where it jumps to the side
+        this.alpha = 0
+
+        this.isColliding = false;
+        this._dx = Math.floor((Math.random() * 5) + 8); // vertical drispeedft
+        this._dy = Math.floor((Math.random() * 3) + 1); // horizontal drift
+        this.x = config.Screen.WIDTH;
+        // get a random y location
+        this.y = Math.floor((Math.random() * ((config.Screen.HEIGHT - (this.height * 0.5)) - (this.height * 0.5))) + (this.height * 0.5));
+        this._startY = this.y;
+        
+        this.alpha = 1
+    }
+
+    public destroy(): void {
+        this._reset()
+    }
+    
+    // PRIVATE METHODS ++++++++++++++++++++++++++++++++++++++++++++
+    private _checkBounds(): void {
+        if ((this.y >= (config.Screen.HEIGHT -50 - (this.height * 0.5)))
+            || (this.x <= (0 - (this.width * 0.5)))) {
+            this._reset();
+        }
+    }
+}
+}
+  
+  //     public Update():void {
+  //       this._updatePosition();
+  //       this._checkBounds();
+  //     }
+  //     public Reset(): void {
+  //       this._reset();
+  //     }
+  //   }
+  // }

@@ -6,6 +6,7 @@ var config;
     config.LEVEL2 = 3;
     config.LEVEL3 = 4;
     config.END = 2;
+    config.WIN = 6;
     var Screen = /** @class */ (function () {
         function Screen() {
         }

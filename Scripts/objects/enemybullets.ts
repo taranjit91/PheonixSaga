@@ -10,19 +10,19 @@ module objects {
       }
       // PRIVATE METHODS
       private _reset(): void {
-        this.y = -1000;
-        this.x = -1000;
+       // this.y = -1000;
+        this.x = -500;
       }
   
       private _checkBounds(): void {
-        if (this.y <= 0 + this.height) {
+        if (this.x <= 0 + this.width) {
           this._reset();
         }
       }
   
       // PUBLIC METHODS
       public Start(): void {
-        this.verticalSpeed = 5;
+        this.horizontalSpeed = -5;
         this._reset();
       }
       
@@ -31,7 +31,7 @@ module objects {
       }
 
       private _updatePosition(): void {
-        this.y += this.verticalSpeed;
+        this.x += this.horizontalSpeed;
         this.position.x = this.x;
         this.position.y = this.y;
       }

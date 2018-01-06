@@ -22,24 +22,24 @@ var objects;
         }
         // PRIVATE METHODS
         EnemyBullet.prototype._reset = function () {
-            this.y = -1000;
-            this.x = -1000;
+            // this.y = -1000;
+            this.x = -500;
         };
         EnemyBullet.prototype._checkBounds = function () {
-            if (this.y <= 0 + this.height) {
+            if (this.x <= 0 + this.width) {
                 this._reset();
             }
         };
         // PUBLIC METHODS
         EnemyBullet.prototype.Start = function () {
-            this.verticalSpeed = 5;
+            this.horizontalSpeed = -5;
             this._reset();
         };
         EnemyBullet.prototype.Reset = function () {
             this._reset();
         };
         EnemyBullet.prototype._updatePosition = function () {
-            this.y += this.verticalSpeed;
+            this.x += this.horizontalSpeed;
             this.position.x = this.x;
             this.position.y = this.y;
         };

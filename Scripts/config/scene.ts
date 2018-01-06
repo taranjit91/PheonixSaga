@@ -5,6 +5,7 @@ module config {
   export const LEVEL2:number = 3;
   export const LEVEL3:number = 4;
   export const END:number = 2;
+  export const WIN:number = 6;
 
   export class Screen {
     public static WIDTH: number = 800;

@@ -28,9 +28,9 @@ var scenes;
         // PRIVATE METHODS
         // PUBLIC METHODS
         Play.prototype.Start = function () {
-            this._engineSound = createjs.Sound.play("engine", 0, 0, 0, -1, 0.20, 0);
-            this._plane = new objects.Plane(this._assetManager);
-            this._ocean = new objects.Ocean(this._assetManager);
+            //this._engineSound = createjs.Sound.play("engine", 0, 0, 0, -1, 0.20, 0);
+            this._player = new objects.Phoenix(this._assetManager);
+            this._background = new objects.Background(this._assetManager, "defaultbg");
             this._monsterBird = new objects.MonsterBird(this._assetManager);
             this._obstacleNum = 2;
             this._obstacles = new Array();
@@ -44,8 +44,8 @@ var scenes;
             //console.log(this._enemyBullets);
             this._lives = 5;
             this._score = 0;
-            this._livesLabel = new objects.Label("Lives: " + this._lives, "30px", "Consolas", "#FFFF00", 10, 10, false);
-            this._scoreLabel = new objects.Label("Score: " + this._score, "30px", "Consolas", "#FFFF00", 350, 10, false);
+            this._livesLabel = new objects.Label("Lives: " + this._lives, "30px", "gameFont", "#b42e2e", 10, 10, false);
+            this._scoreLabel = new objects.Label("Score: " + this._score, "30px", "gameFont", "#b42e2e", 550, 10, false);
             this.Main();
         };
         Play.prototype.Update = function () {
@@ -53,19 +53,19 @@ var scenes;
             // SEAN Begin ----------------------------
             this._inputData = this._inputManager.GetInput();
             // SEAN End ------------------------------
-            this._plane.Update();
+            this._player.Update();
             // SEAN Begin ----------------------------
-            this._plane.UpdatePosition(this._inputData);
-            if (this._plane.TriggerFire(this._inputData)) {
+            this._player.UpdatePosition(this._inputData);
+            if (this._player.TriggerFire(this._inputData)) {
                 this._bulletFire();
             }
             // SEAN End ------------------------------
-            this._ocean.Update();
+            //  this._background.Update();
             this._monsterBird.Update();
             this._checkCollision(this._monsterBird);
-            if (this._monsterBird.TriggerFire()) {
-                this._enemyBulletFire();
-            }
+            // if( this._monsterBird.TriggerFire() ) {
+            //   this._enemyBulletFire();
+            // }
             this._checkCollisionsBullet(this._monsterBird);
             this._bullets.forEach(function (bullet) {
                 bullet.Update();
@@ -82,9 +82,9 @@ var scenes;
             return this._currentScene;
         };
         Play.prototype.Main = function () {
-            this.addChild(this._ocean);
+            this.addChild(this._background);
             this.addChild(this._monsterBird);
-            this.addChild(this._plane);
+            this.addChild(this._player);
             for (var count = 0; count < this._bulletNum; count++) {
                 this._bullets[count] = new objects.Bullet(this._assetManager, "bullet");
                 this.addChild(this._bullets[count]);
@@ -101,8 +101,8 @@ var scenes;
             this.addChild(this._scoreLabel);
         };
         Play.prototype._bulletFire = function () {
-            this._bullets[this._bulletCounter].x = this._plane.bulletSpawn.x;
-            this._bullets[this._bulletCounter].y = this._plane.bulletSpawn.y;
+            this._bullets[this._bulletCounter].x = this._player.bulletSpawn.x;
+            this._bullets[this._bulletCounter].y = this._player.bulletSpawn.y;
             this._bulletCounter++;
             //console.log(this._bulletCounter);
             if (this._bulletCounter >= this._bulletNum - 1) {
@@ -126,15 +126,16 @@ var scenes;
             for (var j = 0; j < this._bullets.length; j++) {
                 var pos2 = this._bullets[j].position;
                 //var size2 = bullets[j].sprite.size;
-                if (Math.sqrt(Math.pow(pos.x - pos2.x, 2) + Math.pow(pos.y - pos2.y, 2)) < (this._plane.halfHeight + other.halfHeight)) {
+                if (Math.sqrt(Math.pow(pos.x - pos2.x, 2) + Math.pow(pos.y - pos2.y, 2)) < (this._player.halfHeight + other.halfHeight)) {
                     if (!other.isColliding) {
-                        if (other.name == "monsterbird") {
+                        console.log("Collision with " + other.name);
+                        if (other.name == "enemy1") {
                             console.log("Collision with " + other.name);
                             this._score += 100;
                             this._scoreLabel.text = "Score: " + this._score;
                             if (this._score >= 800) {
                                 this._currentScene = config.LEVEL2;
-                                this._engineSound.stop();
+                                // this._engineSound.stop();
                                 this.removeAllChildren();
                             }
                             //createjs.Sound.play("thunder", 0, 0, 0, 0, 0.5);
@@ -150,10 +151,10 @@ var scenes;
             }
         };
         Play.prototype._checkCollision = function (other) {
-            var P1 = new createjs.Point(this._plane.x, this._plane.y);
+            var P1 = new createjs.Point(this._player.x, this._player.y);
             var P2 = other.position;
             // compare the distance between P1 and P2 is less than half the height of each object
-            if (Math.sqrt(Math.pow(P2.x - P1.x, 2) + Math.pow(P2.y - P1.y, 2)) < (this._plane.halfHeight + other.halfHeight)) {
+            if (Math.sqrt(Math.pow(P2.x - P1.x, 2) + Math.pow(P2.y - P1.y, 2)) < (this._player.halfHeight + other.halfHeight)) {
                 if (!other.isColliding) {
                     //console.log("Collision with " + other.name);
                     // if(other.name == "monsterbird"){

@@ -15,6 +15,8 @@ module objects {
     public bulletSpawn:createjs.Point;
     public powerBulletSpawn:createjs.Point;
     public _life:number = 20;
+
+    public _dead:boolean = false;
     
     // CONSTRUCTORS
     constructor(assetManager: createjs.LoadQueue) {
@@ -56,7 +58,21 @@ module objects {
     }
     
     public Reset(): void {
-      this._reset();
+     // this._dead= false;
+     // this._reset();
+    }
+    public isDead():boolean{
+      console.log(" life "+this._life+" >> "+this._dead );
+      if (this._life <= 0) 
+        {
+          this._dead = true;  
+        }
+        else
+        {
+          this._dead = false; 
+        }
+        console.log(" life "+this._life+" >> "+this._dead );
+      return this._dead;
     }
     // PUBLIC METHODS
     public Start():void {
@@ -81,23 +97,20 @@ module objects {
       } else {
         this.y -= this._dy;
       }
-      // if (this._dxF) {
-      //   this.x += this._dx;
-      // } else {
-      //   this.x -= this._dx;
-      // }
-      // if (this._dyF) {
-      //     this.y += this._dy;
-      // } else {
-      //     this.y -= this._dy;
-      // }
+      
 
       this.position.x = this.x;
       this.position.y = this.y;
     }
 
-    public Damaged():void {
-      this._life--;
+    public Damaged(bulletType:number):void {
+      console.log("bullet type:: "+bulletType);
+      if(bulletType == 1)
+      this._life= this._life-2;
+      else 
+      {
+        this._life= this._life-1;
+      }
       this._hitTime = createjs.Ticker.getTime();
 
       if (this._life <= 0) {
@@ -108,6 +121,9 @@ module objects {
     public Update():void {
       this.bulletSpawn.x = this.x;
       this.bulletSpawn.y = this.y + 20;
+
+      this.powerBulletSpawn.x = this.x;
+      this.powerBulletSpawn.y = this.y + 20;
 
       this._updatePosition();
       this._checkBounds();

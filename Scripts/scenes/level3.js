@@ -26,7 +26,7 @@ var scenes;
         // PUBLIC METHODS
         Level3.prototype.Start = function () {
             this._bg = new objects.Background(this._assetManager, "level2bg");
-            this._level2Label = new objects.Label("LEVEL 3", "40px", "Consolas", "#ffffff", 400, 20, true);
+            this._level2Label = new objects.Label("LEVEL 3", "40px", "gameFont", "#ffffff", 400, 20, true);
             this._backButton = new objects.Button(this._assetManager, "backButton", 400, 340, true);
             this._player = new objects.Phoenix(this._assetManager);
             this._monsterBoss = new objects.MonsterBoss(this._assetManager);
@@ -36,8 +36,8 @@ var scenes;
             this._powerbulletNum = 5;
             this._powerbullets = new Array();
             this._powerbulletCounter = 0;
-            this._bulletLabel = new objects.Label("Bullet: ", "16px", "Consolas", "#ffffff", 10, config.Screen.HEIGHT - 40, false);
-            this._powerBulletLabel = new objects.Label("Power Bullet: ", "16px", "Consolas", "#ffffff", 10, config.Screen.HEIGHT - 25, false);
+            this._bulletLabel = new objects.Label("Bullet: ", "16px", "gameFont", "#ffffff", 10, config.Screen.HEIGHT - 80, false);
+            this._powerBulletLabel = new objects.Label("Power Bullet: ", "16px", "gameFont", "#ffffff", 10, config.Screen.HEIGHT - 50, false);
             this.Main();
         };
         // =======================================================
@@ -70,9 +70,10 @@ var scenes;
                 bullet.Update();
                 _this._checkCollisionsBullet(bullet);
             });
-            this._powerbullets.forEach(function (bullet) {
-                bullet.Update();
-                // this._checkCollisionsBullet(bullet);
+            this._checkCollisionsPowerBullet(this._monsterBoss);
+            this._powerbullets.forEach(function (pbullet) {
+                pbullet.Update();
+                _this._checkCollisionsPowerBullet(pbullet);
             });
             this._updateBossHPBar();
             // Update Bullet Label
@@ -94,6 +95,34 @@ var scenes;
                 this._powerbulletCounter++;
             }
         };
+        Level3.prototype._checkCollisionsPowerBullet = function (other) {
+            var pos = this._monsterBoss.position;
+            // var size = enemies[i].sprite.size;
+            for (var j = 0; j < this._powerbullets.length; j++) {
+                var pos2 = this._powerbullets[j].position;
+                //var size2 = bullets[j].sprite.size;
+                if (Math.sqrt(Math.pow(pos.x - pos2.x, 2) + Math.pow(pos.y - pos2.y, 2)) < (this._player.halfHeight + other.halfHeight)) {
+                    if (!other.isColliding) {
+                        console.log(">>> %% " + this.name + " ** " + other.name);
+                        if (other.name == "enemyBoss") {
+                            console.log("Collision with " + other.name);
+                            this._monsterBoss.Damaged(1);
+                            this._powerbullets[j].Reset();
+                            console.log("^^^^^^^^ " + this._monsterBoss.isDead());
+                            if (this._monsterBoss.isDead() == true) {
+                                this._currentScene = config.WIN;
+                                // this._engineSound.stop();
+                                this.removeAllChildren();
+                            }
+                        }
+                        other.isColliding = true;
+                    }
+                }
+                else {
+                    other.isColliding = false;
+                }
+            }
+        };
         Level3.prototype._checkCollisionsBullet = function (other) {
             var pos = this._monsterBoss.position;
             // var size = enemies[i].sprite.size;
@@ -104,16 +133,14 @@ var scenes;
                     if (!other.isColliding) {
                         if (other.name == "enemyBoss") {
                             console.log("Collision with " + other.name);
-                            //  this._score += 100;
-                            //this._scoreLabel.text = "Score: " + this._score;
-                            // if(this._score>=800){
-                            //   this._currentScene = config.LEVEL2;
-                            //  // this._engineSound.stop();
-                            //   this.removeAllChildren(); 
-                            // }
-                            //createjs.Sound.play("thunder", 0, 0, 0, 0, 0.5);
-                            this._monsterBoss.Damaged();
+                            this._monsterBoss.Damaged(0);
                             this._bullets[j].Reset();
+                            console.log("^^^^^^^^ " + this._monsterBoss.isDead());
+                            if (this._monsterBoss.isDead() == true) {
+                                this._currentScene = config.WIN;
+                                // this._engineSound.stop();
+                                this.removeAllChildren();
+                            }
                         }
                         other.isColliding = true;
                     }
@@ -134,7 +161,7 @@ var scenes;
         };
         Level3.prototype._updateBossHPBar = function () {
             this._monsterBossHPBar.graphics.clear();
-            this._monsterBossHPBar.graphics.beginFill('#f00');
+            this._monsterBossHPBar.graphics.beginFill('#b42e2e');
             this._monsterBossHPBar.graphics.drawRect(0, 0, 300 * this._monsterBoss._life / 20, 20);
             this._monsterBossHPBar.graphics.endFill();
             this._monsterBossHPBar.graphics.setStrokeStyle(2);
@@ -143,10 +170,10 @@ var scenes;
             this._monsterBossHPBar.graphics.endStroke();
         };
         Level3.prototype._updateBulletLabel = function () {
-            this._bulletLabel.text = "Bullet: " + (this._bulletNum - this._bulletCounter);
+            this._bulletLabel.text = "Bullets: " + (this._bulletNum - this._bulletCounter);
         };
         Level3.prototype._updatePowerBulletLabel = function () {
-            this._powerBulletLabel.text = "Power Bullet: " + (this._powerbulletNum - this._powerbulletCounter);
+            this._powerBulletLabel.text = "Power Bullets: " + (this._powerbulletNum - this._powerbulletCounter);
         };
         Level3.prototype.Main = function () {
             var _this = this;

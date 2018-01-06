@@ -2,6 +2,7 @@ module scenes {
   export class End extends objects.Scene {
     // PRIVATE INSTANCE VARIABLES
     private _assetManager:createjs.LoadQueue;
+    private _bg:objects.Background;
 
     private _gameOverLabel:objects.Label;
     private _backButton:objects.Button;
@@ -19,7 +20,9 @@ module scenes {
 
     // PUBLIC METHODS
     public Start():void {
-      this._gameOverLabel = new objects.Label("Game Over", "40px", "Consolas", "#ffffff", 400, 240, true);
+      this._bg = new objects.Background(this._assetManager,"defaultbg");
+      
+      this._gameOverLabel = new objects.Label("GAME OVER", "40px","gameFont", "#b42e2e", 400, 200, true);
       this._backButton = new objects.Button(this._assetManager, "backButton", 400, 340, true);
       this.Main();
     }
@@ -29,10 +32,9 @@ module scenes {
     }
 
     public Main():void {
+      this.addChild(this._bg);
 
       this.addChild(this._gameOverLabel);
-
-
       this.addChild(this._backButton);
 
       this._backButton.on("click", () => {

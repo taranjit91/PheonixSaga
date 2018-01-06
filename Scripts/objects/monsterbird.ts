@@ -17,8 +17,8 @@ module objects {
       // PRIVATE METHODS
       private _reset():void {
        // this.y = -this.height;
-       this.y=Math.random() * this.halfHeight;
-        this.x = (Math.random() * (760-this.width))+this.halfWidth;
+       this.y=Math.random() * (560-this.height)+this.halfHeight;
+        this.x = (Math.random() * (800-this.width))+this.halfWidth;
       }
   
       private _checkBounds():void {

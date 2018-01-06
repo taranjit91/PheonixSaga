@@ -18,6 +18,7 @@ var objects;
             _this._dyF = true; // distinguish +-
             _this._dxF = true; // distinguish +-
             _this._life = 20;
+            _this._dead = false;
             _this.Start();
             return _this;
         }
@@ -53,7 +54,19 @@ var objects;
             // }
         };
         MonsterBoss.prototype.Reset = function () {
-            this._reset();
+            // this._dead= false;
+            // this._reset();
+        };
+        MonsterBoss.prototype.isDead = function () {
+            console.log(" life " + this._life + " >> " + this._dead);
+            if (this._life <= 0) {
+                this._dead = true;
+            }
+            else {
+                this._dead = false;
+            }
+            console.log(" life " + this._life + " >> " + this._dead);
+            return this._dead;
         };
         // PUBLIC METHODS
         MonsterBoss.prototype.Start = function () {
@@ -78,21 +91,16 @@ var objects;
             else {
                 this.y -= this._dy;
             }
-            // if (this._dxF) {
-            //   this.x += this._dx;
-            // } else {
-            //   this.x -= this._dx;
-            // }
-            // if (this._dyF) {
-            //     this.y += this._dy;
-            // } else {
-            //     this.y -= this._dy;
-            // }
             this.position.x = this.x;
             this.position.y = this.y;
         };
-        MonsterBoss.prototype.Damaged = function () {
-            this._life--;
+        MonsterBoss.prototype.Damaged = function (bulletType) {
+            console.log("bullet type:: " + bulletType);
+            if (bulletType == 1)
+                this._life = this._life - 2;
+            else {
+                this._life = this._life - 1;
+            }
             this._hitTime = createjs.Ticker.getTime();
             if (this._life <= 0) {
                 this.Reset();
@@ -101,6 +109,8 @@ var objects;
         MonsterBoss.prototype.Update = function () {
             this.bulletSpawn.x = this.x;
             this.bulletSpawn.y = this.y + 20;
+            this.powerBulletSpawn.x = this.x;
+            this.powerBulletSpawn.y = this.y + 20;
             this._updatePosition();
             this._checkBounds();
             this._bulletTriggerCount++;

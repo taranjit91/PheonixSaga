@@ -10,11 +10,11 @@ var __extends = (this && this.__extends) || (function () {
 })();
 var scenes;
 (function (scenes) {
-    var End = /** @class */ (function (_super) {
-        __extends(End, _super);
+    var Win = /** @class */ (function (_super) {
+        __extends(Win, _super);
         // PUBLIC PROPERTIES
         // CONSTRUCTORS
-        function End(assetManager, currentScene) {
+        function Win(assetManager, currentScene) {
             var _this = _super.call(this) || this;
             _this._assetManager = assetManager;
             _this._currentScene = currentScene;
@@ -23,16 +23,16 @@ var scenes;
         }
         // PRIVATE METHODS
         // PUBLIC METHODS
-        End.prototype.Start = function () {
+        Win.prototype.Start = function () {
             this._bg = new objects.Background(this._assetManager, "defaultbg");
-            this._gameOverLabel = new objects.Label("GAME OVER", "40px", "gameFont", "#b42e2e", 400, 200, true);
-            this._backButton = new objects.Button(this._assetManager, "backButton", 400, 340, true);
+            this._gameOverLabel = new objects.Label("YOU WON", "50px", "gameFont", "#b42e2e", 400, 200, true);
+            this._backButton = new objects.Button(this._assetManager, "restartButton", 400, 340, true);
             this.Main();
         };
-        End.prototype.Update = function () {
+        Win.prototype.Update = function () {
             return this._currentScene;
         };
-        End.prototype.Main = function () {
+        Win.prototype.Main = function () {
             var _this = this;
             this.addChild(this._bg);
             this.addChild(this._gameOverLabel);
@@ -42,8 +42,8 @@ var scenes;
                 _this.removeAllChildren();
             });
         };
-        return End;
+        return Win;
     }(objects.Scene));
-    scenes.End = End;
+    scenes.Win = Win;
 })(scenes || (scenes = {}));
-//# sourceMappingURL=end.js.map
+//# sourceMappingURL=win.js.map
