@@ -76,7 +76,7 @@ var objects;
             this.powerBulletSpawn = new createjs.Point(this.y - 35, this.x);
             this._bulletTrigger = false;
             this._bulletTriggerCount = 0;
-            this._bulletTriggerPoint = 50;
+            this._bulletTriggerPoint = 100;
         };
         MonsterBoss.prototype._updatePosition = function () {
             if (this._dxF) {

@@ -16,18 +16,31 @@ module objects {
   
         // PRIVATE METHODS
         private _checkBounds() {
-          if(this.x >= (736 - this.halfHeight)) {
-              this.x = 736 - this.halfWidth;
-          }
-          if(this.x <= this.halfWidth) {
-              this.x = this.halfWidth;
-          }
-          if(this.y >= (300 - this.halfHeight)) {
-              this.y = 300 - this.halfHeight;
-          }
-          if(this.y <= this.halfHeight) {
-              this.y = this.halfHeight
-          }
+        //   if(this.x >= (736 - this.halfHeight)) {
+        //       this.x = 736 - this.halfWidth;
+        //   }
+        //   if(this.x <= this.halfWidth) {
+        //       this.x = this.halfWidth;
+        //   }
+        //   if(this.y >= (300 - this.halfHeight)) {
+        //       this.y = 300 - this.halfHeight;
+        //   }
+        //   if(this.y <= this.halfHeight) {
+        //       this.y = this.halfHeight
+        //   }
+
+            if(this.x >= (config.Screen.WIDTH  - (this.width * 0.3))) {
+                this.x = config.Screen.WIDTH - (this.width * 0.3);
+            }
+            if(this.x <= this.halfWidth) {
+                this.x = this.halfWidth;
+            }
+            if(this.y >= (config.Screen.HEIGHT - (this.height * 1.2))) {
+                this.y = config.Screen.HEIGHT - (this.height * 1.2);
+            }
+            if(this.y <= this.halfHeight) {
+                this.y = this.halfHeight;
+            }
         }
   
         // PUBLIC METHODS

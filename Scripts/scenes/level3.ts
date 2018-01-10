@@ -18,7 +18,15 @@ module scenes {
         // For Enemy Bullet
         private _enemyBullets: objects.EnemyBullet[];
         private _enemyBulletNum: number;
-        private _enemyBulletCounter: number;    
+        private _enemyBulletCounter: number;
+
+        private _enemyBulletsL: objects.EnemyBullet[];
+        private _enemyBulletNumL: number;
+        private _enemyBulletCounterL: number;
+
+        private _enemyBulletsR: objects.EnemyBullet[];
+        private _enemyBulletNumR: number;
+        private _enemyBulletCounterR: number;
         
         // For Bullet
         private _bullets: objects.Bullet[];
@@ -55,9 +63,17 @@ module scenes {
         this._monsterBoss = new objects.MonsterBoss(this._assetManager);
 
         // For Boss Bullet
-        this._enemyBulletNum = 200;
+        this._enemyBulletNum = 100;
         this._enemyBullets = new Array<objects.EnemyBullet>();
         this._enemyBulletCounter = 0;
+
+        this._enemyBulletNumL = 100;
+        this._enemyBulletsL = new Array<objects.EnemyBullet>();
+        this._enemyBulletCounterL = 0;
+
+        this._enemyBulletNumR = 100;
+        this._enemyBulletsR = new Array<objects.EnemyBullet>();
+        this._enemyBulletCounterR = 0;
 
         // For Bullet
         this._bulletNum = 20;
@@ -82,7 +98,14 @@ module scenes {
         this._bg1.update();
 
         this._player.Update();
+        
+        // For Enemy
         this._monsterBoss.Update();
+    
+        if( this._monsterBoss.TriggerFire() ) {
+            this._enemyBulletFire();
+        }
+
         this._player.UpdatePosition(this._inputData);
 
         if( this._player.TriggerFire(this._inputData) ) {
@@ -106,15 +129,29 @@ module scenes {
             }
         }
 
+        // For Bullet
         this._checkCollisionsBullet(this._monsterBoss);
         this._bullets.forEach(bullet => {
             bullet.Update();
             this._checkCollisionsBullet(bullet);
         });
+
+        // For Power Bullet
         this._checkCollisionsPowerBullet(this._monsterBoss);
         this._powerbullets.forEach(pbullet => {
             pbullet.Update();
-         this._checkCollisionsPowerBullet(pbullet);
+            this._checkCollisionsPowerBullet(pbullet);
+        });
+
+        // For Enemy Bullet        
+        this._enemyBullets.forEach(enemyBullet => {
+            enemyBullet.Update();
+        });
+        this._enemyBulletsL.forEach(enemyBulletL => {
+            enemyBulletL.Update();
+        });
+        this._enemyBulletsR.forEach(enemyBulletR => {
+            enemyBulletR.Update();
         });
 
         this._updateBossHPBar();
@@ -142,6 +179,37 @@ module scenes {
             this._powerbullets[this._powerbulletCounter].y = this._player.powerBulletSpawn.y;
     
             this._powerbulletCounter++;
+        }
+      }
+
+      private _enemyBulletFire():void {
+        this._monsterBoss.SetBulletTrigger(false);
+  
+        // Bullet
+        this._enemyBullets[this._enemyBulletCounter].x = this._monsterBoss.bulletSpawn.x;
+        this._enemyBullets[this._enemyBulletCounter].y = this._monsterBoss.bulletSpawn.y;
+        this._enemyBulletCounter++;
+
+        if(this._enemyBulletCounter >= this._enemyBulletNum - 1) {
+          this._enemyBulletCounter = 0;
+        }
+
+        // BulletL
+        this._enemyBulletsL[this._enemyBulletCounterL].x = this._monsterBoss.bulletSpawn.x;
+        this._enemyBulletsL[this._enemyBulletCounterL].y = this._monsterBoss.bulletSpawn.y;
+        this._enemyBulletCounterL++;
+
+        if(this._enemyBulletCounterL >= this._enemyBulletNumL - 1) {
+          this._enemyBulletCounterL = 0;
+        }
+
+        // BulletR
+        this._enemyBulletsR[this._enemyBulletCounterR].x = this._monsterBoss.bulletSpawn.x;
+        this._enemyBulletsR[this._enemyBulletCounterR].y = this._monsterBoss.bulletSpawn.y;
+        this._enemyBulletCounterR++;
+
+        if(this._enemyBulletCounterR >= this._enemyBulletNumR - 1) {
+          this._enemyBulletCounterR = 0;
         }
       }
 
@@ -268,9 +336,21 @@ module scenes {
         this.addChild(this._monsterBoss);
 
         // For Boss Bullet
-        for (let counte = 0; counte < this._enemyBulletNum; counte++) {
-            this._enemyBullets[counte] = new objects.EnemyBullet(this._assetManager);
-            this.addChild(this._enemyBullets[counte]);
+        for (let count = 0; count < this._enemyBulletNum; count++) {
+            this._enemyBullets[count] = new objects.EnemyBullet(this._assetManager);
+            this.addChild(this._enemyBullets[count]);
+        }
+
+        for (let countL = 0; countL < this._enemyBulletNumL; countL++) {
+            this._enemyBulletsL[countL] = new objects.EnemyBullet(this._assetManager);
+            this._enemyBulletsL[countL].SetBulletType(1);
+            this.addChild(this._enemyBulletsL[countL]);
+        }
+
+        for (let countR = 0; countR < this._enemyBulletNumR; countR++) {
+            this._enemyBulletsR[countR] = new objects.EnemyBullet(this._assetManager);
+            this._enemyBulletsR[countR].SetBulletType(2);
+            this.addChild(this._enemyBulletsR[countR]);
         }
 
         // For Bullet

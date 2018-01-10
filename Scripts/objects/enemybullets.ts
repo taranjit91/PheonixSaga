@@ -24,7 +24,7 @@ module objects {
   
       // PUBLIC METHODS
       public Start(): void {
-        this.horizontalSpeed = -5;
+        this.horizontalSpeed = 3.5;
         this._bulletType = 0;
         this._reset();
       }
@@ -42,6 +42,10 @@ module objects {
 
       public SetBulletType(bulletType: number): void {
         this._bulletType = bulletType;
+      }
+      
+      public SetBulletSpeed(bulletSpeed: number): void {
+        this.horizontalSpeed = bulletSpeed;
       }
 
       private _updatePosition(): void {

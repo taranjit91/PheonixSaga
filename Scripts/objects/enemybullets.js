@@ -31,7 +31,7 @@ var objects;
         };
         // PUBLIC METHODS
         EnemyBullet.prototype.Start = function () {
-            this.horizontalSpeed = -5;
+            this.horizontalSpeed = 3.5;
             this._bulletType = 0;
             this._reset();
         };
@@ -46,6 +46,9 @@ var objects;
         };
         EnemyBullet.prototype.SetBulletType = function (bulletType) {
             this._bulletType = bulletType;
+        };
+        EnemyBullet.prototype.SetBulletSpeed = function (bulletSpeed) {
+            this.horizontalSpeed = bulletSpeed;
         };
         EnemyBullet.prototype._updatePosition = function () {
             this.x -= this.horizontalSpeed;

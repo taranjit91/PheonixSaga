@@ -15,17 +15,17 @@ module objects {
 
       // PRIVATE METHODS
       private _checkBounds() {
-        if(this.x >= (800 - this.halfHeight)) {
-            this.x = 800 - this.halfWidth;
+        if(this.x >= (800 - (this.width * 0.3))) {
+            this.x = 800 - (this.width * 0.3);
         }
         if(this.x <= this.halfWidth) {
             this.x = this.halfWidth;
         }
-        if(this.y >= (600 - this.halfHeight)) {
-            this.y = 600 - this.halfHeight;
+        if(this.y >= (600 -(this.height * 0.3))) {
+            this.y = 600 - (this.height * 0.3);
         }
-        if(this.y <= this.halfHeight) {
-            this.y = this.halfHeight
+        if(this.y <= (this.height * 0.3)) {
+            this.y = (this.height * 0.3);
         }
       }
 
