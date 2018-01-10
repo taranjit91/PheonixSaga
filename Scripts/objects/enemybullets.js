@@ -15,7 +15,7 @@ var objects;
         // PUBLIC PROPERTIES
         // CONSTRUCTORS
         function EnemyBullet(assetManager) {
-            var _this = _super.call(this, assetManager, "bullet") || this;
+            var _this = _super.call(this, assetManager, "enemybullet") || this;
             _this.Start();
             return _this;
         }
@@ -26,6 +26,9 @@ var objects;
         };
         EnemyBullet.prototype._checkBounds = function () {
             if (this.x <= 0 + this.width) {
+                this._reset();
+            }
+            if (this.y <= 0 + this.height) {
                 this._reset();
             }
         };

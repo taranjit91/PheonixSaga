@@ -60,17 +60,17 @@ module objects {
      // this._dead= false;
      // this._reset();
     }
-    public isDead():boolean{
-      console.log(" life "+this._life+" >> "+this._dead );
+
+    public isDead(): boolean
+    {
       if (this._life <= 0) 
-        {
-          this._dead = true;  
-        }
-        else
-        {
-          this._dead = false; 
-        }
-        console.log(" life "+this._life+" >> "+this._dead );
+      {
+        this._dead = true;  
+      }
+      else
+      {
+        this._dead = false; 
+      }        
       return this._dead;
     }
     // PUBLIC METHODS
@@ -95,24 +95,25 @@ module objects {
         this.y += this._dy;
       } else {
         this.y -= this._dy;
-      }
-      
+      }      
 
       this.position.x = this.x;
       this.position.y = this.y;
     }
 
     public Damaged(bulletType:number):void {
-      console.log("bullet type:: "+bulletType);
       if(bulletType == 1)
-      this._life= this._life-2;
+      {
+        this._life= this._life-2;
+      }
       else 
       {
         this._life= this._life-1;
       }
       this._hitTime = createjs.Ticker.getTime();
 
-      if (this._life <= 0) {
+      if (this._life <= 0)
+      {
         this.Reset();
       }
     }

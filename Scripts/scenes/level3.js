@@ -95,7 +95,8 @@ var scenes;
                 pbullet.Update();
                 _this._checkCollisionsPowerBullet(pbullet);
             });
-            // For Enemy Bullet        
+            // For Enemy Bullet
+            this._checkCollisionsEnemyBullet(this._player);
             this._enemyBullets.forEach(function (enemyBullet) {
                 enemyBullet.Update();
             });
@@ -149,20 +150,33 @@ var scenes;
                 this._enemyBulletCounterR = 0;
             }
         };
-        Level3.prototype._checkCollisionsPowerBullet = function (other) {
-            var pos = this._monsterBoss.position;
-            // var size = enemies[i].sprite.size;
-            for (var j = 0; j < this._powerbullets.length; j++) {
-                var pos2 = this._powerbullets[j].position;
-                //var size2 = bullets[j].sprite.size;
+        Level3.prototype._checkCollisionsEnemyBullet = function (other) {
+            var pos = this._player.position;
+            //console.log("Collision with " + pos);
+            for (var j = 0; j < this._enemyBullets.length; j++) {
+                var pos2 = this._enemyBullets[j].position;
                 if (Math.sqrt(Math.pow(pos.x - pos2.x, 2) + Math.pow(pos.y - pos2.y, 2)) < (this._player.halfHeight + other.halfHeight)) {
                     if (!other.isColliding) {
-                        console.log(">>> %% " + this.name + " ** " + other.name);
+                        //console.log("Collision with " + other.name);
+                        if (other.name == "phoenix_play") {
+                        }
+                    }
+                    other.isColliding = true;
+                }
+                else {
+                    other.isColliding = false;
+                }
+            }
+        };
+        Level3.prototype._checkCollisionsPowerBullet = function (other) {
+            var pos = this._monsterBoss.position;
+            for (var j = 0; j < this._powerbullets.length; j++) {
+                var pos2 = this._powerbullets[j].position;
+                if (Math.sqrt(Math.pow(pos.x - pos2.x, 2) + Math.pow(pos.y - pos2.y, 2)) < (this._player.halfHeight + other.halfHeight)) {
+                    if (!other.isColliding) {
                         if (other.name == "enemyBoss") {
-                            console.log("Collision with " + other.name);
                             this._monsterBoss.Damaged(1);
                             this._powerbullets[j].Reset();
-                            console.log("^^^^^^^^ " + this._monsterBoss.isDead());
                             if (this._monsterBoss.isDead() == true) {
                                 this._currentScene = config.WIN;
                                 // this._engineSound.stop();
@@ -179,17 +193,15 @@ var scenes;
         };
         Level3.prototype._checkCollisionsBullet = function (other) {
             var pos = this._monsterBoss.position;
-            // var size = enemies[i].sprite.size;
             for (var j = 0; j < this._bullets.length; j++) {
                 var pos2 = this._bullets[j].position;
-                //var size2 = bullets[j].sprite.size;
                 if (Math.sqrt(Math.pow(pos.x - pos2.x, 2) + Math.pow(pos.y - pos2.y, 2)) < (this._player.halfHeight + other.halfHeight)) {
+                    console.log("other position: " + other.position);
                     if (!other.isColliding) {
+                        //console.log("Collision with " + other.name);
                         if (other.name == "enemyBoss") {
-                            console.log("Collision with " + other.name);
                             this._monsterBoss.Damaged(0);
                             this._bullets[j].Reset();
-                            console.log("^^^^^^^^ " + this._monsterBoss.isDead());
                             if (this._monsterBoss.isDead() == true) {
                                 this._currentScene = config.WIN;
                                 // this._engineSound.stop();
@@ -203,6 +215,28 @@ var scenes;
                     other.isColliding = false;
                 }
             }
+            // // 
+            // for(var j = 0; j < this._enemyBullets.length; j++) {
+            //     var pos2 = this._enemyBullets[j].position;
+            //     if(Math.sqrt(Math.pow(pos.x - pos2.x, 2) + Math.pow(pos.y - pos2.y, 2)) <(
+            //     this._player.halfHeight + other.halfHeight))
+            //     {
+            //         if(!other.isColliding)
+            //         {
+            //             //console.log("Collision with " + other.name);
+            //             if(other.name == "phoenix_play")
+            //             { 
+            //                 console.log("Collision with " + other.name);
+            //                 //this._enemyBullets[j].Reset(); 
+            //             }
+            //             other.isColliding = true;
+            //         }
+            //         else
+            //         {
+            //             other.isColliding = false;
+            //         }
+            //     }
+            // }
         };
         Level3.prototype._createBossHPBar = function () {
             this._monsterBossHPBar = new createjs.Shape();

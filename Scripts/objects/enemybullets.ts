@@ -6,7 +6,7 @@ module objects {
       // PUBLIC PROPERTIES
       // CONSTRUCTORS
       constructor(assetManager: createjs.LoadQueue) {
-        super(assetManager, "bullet");
+        super(assetManager, "enemybullet");
   
         this.Start();
       }
@@ -18,6 +18,9 @@ module objects {
   
       private _checkBounds(): void {
         if (this.x <= 0 + this.width) {
+          this._reset();
+        }
+        if (this.y <= 0 + this.height) {
           this._reset();
         }
       }

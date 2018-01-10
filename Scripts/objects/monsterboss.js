@@ -58,14 +58,12 @@ var objects;
             // this._reset();
         };
         MonsterBoss.prototype.isDead = function () {
-            console.log(" life " + this._life + " >> " + this._dead);
             if (this._life <= 0) {
                 this._dead = true;
             }
             else {
                 this._dead = false;
             }
-            console.log(" life " + this._life + " >> " + this._dead);
             return this._dead;
         };
         // PUBLIC METHODS
@@ -95,9 +93,9 @@ var objects;
             this.position.y = this.y;
         };
         MonsterBoss.prototype.Damaged = function (bulletType) {
-            console.log("bullet type:: " + bulletType);
-            if (bulletType == 1)
+            if (bulletType == 1) {
                 this._life = this._life - 2;
+            }
             else {
                 this._life = this._life - 1;
             }
