@@ -1,6 +1,8 @@
 module objects {
     export class EnemyBullet extends objects.GameObject {
       // PRIVATE INSTANCE VARIABLES
+      private _bulletType:number;
+
       // PUBLIC PROPERTIES
       // CONSTRUCTORS
       constructor(assetManager: createjs.LoadQueue) {
@@ -23,17 +25,12 @@ module objects {
       // PUBLIC METHODS
       public Start(): void {
         this.horizontalSpeed = -5;
+        this._bulletType = 0;
         this._reset();
       }
       
       public Reset(): void {
         this._reset();
-      }
-
-      private _updatePosition(): void {
-        this.x += this.horizontalSpeed;
-        this.position.x = this.x;
-        this.position.y = this.y;
       }
   
       public Update(): void {
@@ -41,6 +38,24 @@ module objects {
           this._updatePosition();
           this._checkBounds();
         }
+      }
+
+      public SetBulletType(bulletType: number): void {
+        this._bulletType = bulletType;
+      }
+
+      private _updatePosition(): void {
+        this.x -= this.horizontalSpeed;
+
+        if(this._bulletType == 1) {
+          this.y -= (this.horizontalSpeed / 3);
+        }
+        else if(this._bulletType == 2) {
+          this.y += (this.horizontalSpeed / 3);
+        }
+
+        this.position.x = this.x;
+        this.position.y = this.y;
       }
     }
   }

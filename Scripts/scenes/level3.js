@@ -31,6 +31,11 @@ var scenes;
             this._backButton = new objects.Button(this._assetManager, "backButton", 400, 340, true);
             this._player = new objects.Phoenix(this._assetManager);
             this._monsterBoss = new objects.MonsterBoss(this._assetManager);
+            // For Boss Bullet
+            this._enemyBulletNum = 200;
+            this._enemyBullets = new Array();
+            this._enemyBulletCounter = 0;
+            // For Bullet
             this._bulletNum = 20;
             this._bullets = new Array();
             this._bulletCounter = 0;
@@ -193,6 +198,11 @@ var scenes;
             this.addChild(this._level2Label);
             this.addChild(this._player);
             this.addChild(this._monsterBoss);
+            // For Boss Bullet
+            for (var counte = 0; counte < this._enemyBulletNum; counte++) {
+                this._enemyBullets[counte] = new objects.EnemyBullet(this._assetManager);
+                this.addChild(this._enemyBullets[counte]);
+            }
             // For Bullet
             for (var count = 0; count < this._bulletNum; count++) {
                 this._bullets[count] = new objects.Bullet(this._assetManager, "bullet");

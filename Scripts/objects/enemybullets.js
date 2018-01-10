@@ -12,7 +12,6 @@ var objects;
 (function (objects) {
     var EnemyBullet = /** @class */ (function (_super) {
         __extends(EnemyBullet, _super);
-        // PRIVATE INSTANCE VARIABLES
         // PUBLIC PROPERTIES
         // CONSTRUCTORS
         function EnemyBullet(assetManager) {
@@ -33,21 +32,31 @@ var objects;
         // PUBLIC METHODS
         EnemyBullet.prototype.Start = function () {
             this.horizontalSpeed = -5;
+            this._bulletType = 0;
             this._reset();
         };
         EnemyBullet.prototype.Reset = function () {
             this._reset();
-        };
-        EnemyBullet.prototype._updatePosition = function () {
-            this.x += this.horizontalSpeed;
-            this.position.x = this.x;
-            this.position.y = this.y;
         };
         EnemyBullet.prototype.Update = function () {
             if (this.y > 0) {
                 this._updatePosition();
                 this._checkBounds();
             }
+        };
+        EnemyBullet.prototype.SetBulletType = function (bulletType) {
+            this._bulletType = bulletType;
+        };
+        EnemyBullet.prototype._updatePosition = function () {
+            this.x -= this.horizontalSpeed;
+            if (this._bulletType == 1) {
+                this.y -= (this.horizontalSpeed / 3);
+            }
+            else if (this._bulletType == 2) {
+                this.y += (this.horizontalSpeed / 3);
+            }
+            this.position.x = this.x;
+            this.position.y = this.y;
         };
         return EnemyBullet;
     }(objects.GameObject));
