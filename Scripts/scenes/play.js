@@ -17,6 +17,7 @@ var scenes;
         // CONSTRUCTORS
         function Play(assetManager, currentScene) {
             var _this = _super.call(this) || this;
+            _this.numberOfTicks = 0;
             _this._assetManager = assetManager;
             _this._currentScene = currentScene;
             // SEAN Begin ----------------------------
@@ -57,6 +58,7 @@ var scenes;
             this._background.update();
             this._background1.update();
             this._player.Update();
+            this.BirdMovementPattern();
             // SEAN Begin ----------------------------
             this._player.UpdatePosition(this._inputData);
             if (this._player.TriggerFire(this._inputData)) {
@@ -66,9 +68,9 @@ var scenes;
             //  this._background.Update();
             this._monsterBird.Update();
             this._checkCollision(this._monsterBird);
-            // if( this._monsterBird.TriggerFire() ) {
-            //   this._enemyBulletFire();
-            // }
+            if (this._monsterBird.TriggerFire()) {
+                this._enemyBulletFire();
+            }
             this._checkCollisionsBullet(this._monsterBird);
             this._bullets.forEach(function (bullet) {
                 bullet.Update();
@@ -76,13 +78,19 @@ var scenes;
             });
             this._enemyBullets.forEach(function (enemyBullet) {
                 enemyBullet.Update();
-                //this._checkCollisionsBullet(bullet);
+                //  this._checkCollisionsEnemyBullet(enemyBullet);
             });
+            this._checkCollisionsEnemyBullet(this._player);
             // this._obstacles.forEach(obstacle => {
             //   obstacle.Update();
             //   this._checkCollision(obstacle);
             // });
             return this._currentScene;
+        };
+        Play.prototype.BirdMovementPattern = function () {
+            this.numberOfTicks++;
+            this._monsterBird.y = (125 * Math.sin(this.numberOfTicks / 50)) + 150;
+            this._monsterBird.x += this._monsterBird.horizontalSpeed;
         };
         Play.prototype.Main = function () {
             this.addChild(this._background);
@@ -132,6 +140,7 @@ var scenes;
                 var pos2 = this._bullets[j].position;
                 //var size2 = bullets[j].sprite.size;
                 if (Math.sqrt(Math.pow(pos.x - pos2.x, 2) + Math.pow(pos.y - pos2.y, 2)) < (this._player.halfHeight + other.halfHeight)) {
+                    console.log("first page :: " + Math.sqrt(Math.pow(pos.x - pos2.x, 2) + Math.pow(pos.y - pos2.y, 2)) + " is to : " + this._player.halfHeight / 2 + other.halfHeight / 2);
                     if (!other.isColliding) {
                         console.log("Collision with " + other.name);
                         if (other.name == "enemy1") {
@@ -155,6 +164,40 @@ var scenes;
                 }
             }
         };
+        Play.prototype._checkCollisionsEnemyBullet = function (other) {
+            //  var pos = this._player.position;
+            // var size = enemies[i].sprite.size;
+            var pos = new createjs.Point(this._player.x, this._player.y);
+            for (var j = 0; j < this._enemyBullets.length; j++) {
+                var pos2 = this._enemyBullets[j].position;
+                //var size2 = bullets[j].sprite.size;
+                if (Math.sqrt(Math.pow(pos.x - pos2.x, 2) + Math.pow(pos.y - pos2.y, 2)) < (
+                //               this._monsterBird.halfHeight + other.halfHeight))
+                60)) {
+                    console.log("second page :: " + Math.sqrt(Math.pow(pos.x - pos2.x, 2) + Math.pow(pos.y - pos2.y, 2)) + " is to : " + 209);
+                    if (!other.isColliding) {
+                        console.log("Collision with " + other.name);
+                        if (other.name == "phoenix_play") {
+                            console.log("Collision with " + other.name);
+                            this._lives = this._lives - 1;
+                            this._livesLabel.text = "Lives: " + this._lives;
+                            if (this._lives <= 0) {
+                                //  this._currentScene = config.LEVEL2;
+                                // this._engineSound.stop();
+                                //this.removeAllChildren(); 
+                            }
+                            //createjs.Sound.play("thunder", 0, 0, 0, 0, 0.5);
+                            //   this._monsterBird.Reset();
+                            // this._bullets[j].Reset();              
+                            other.isColliding = true;
+                        }
+                    }
+                }
+                else {
+                    other.isColliding = false;
+                }
+            }
+        };
         Play.prototype._checkCollision = function (other) {
             var P1 = new createjs.Point(this._player.x, this._player.y);
             var P2 = other.position;
@@ -170,7 +213,7 @@ var scenes;
                     console.log(other.name);
                     if (other.name == "obstacle" || other.name == "monsterbird") {
                         console.log(this._lives + " >> ");
-                        this._lives -= 1;
+                        //this._lives -= 1;
                         //other.Reset();
                         if (this._lives <= 0) {
                             this._currentScene = config.END;

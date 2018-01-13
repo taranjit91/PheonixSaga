@@ -15,7 +15,7 @@
         { id: "restartButton", src: "./Assets/images/pagain.png" },
         { id: "ocean", src: "./Assets/images/background/level1bg.jpg" },
         { id: "bullet", src: "./Assets/images/bullet.png" },
-        { id: "enemybullet", src: "./Assets/images/bullet.png" },
+        { id: "enemybullet", src: "./Assets/images/eb1.png" },
         { id: "monsterbird", src: "./Assets/images/monsterbird.png" },
         { id: "obstacle", src: "./Assets/images/obstacle.png" },
         { id: "engine", src: "./Assets/audio/engine.ogg" },

@@ -143,15 +143,15 @@ module scenes {
                 this._player.halfHeight + other.halfHeight))
                 {
                   if(!other.isColliding){  
-                    if(other.name == "enemy1"){
+                    if(other.name == "enemy"){
                       console.log("Collision with " + other.name);
-                    //  this._score += 100;
-                      //this._scoreLabel.text = "Score: " + this._score;
-                      // if(this._score>=800){
-                      //   this._currentScene = config.LEVEL2;
-                      //  // this._engineSound.stop();
-                      //   this.removeAllChildren(); 
-                      // }
+                     this._score += 100;
+                      this._scoreLabel.text = "Score: " + this._score;
+                      if(this._score>=800){
+                        this._currentScene = config.LEVEL2;
+                       // this._engineSound.stop();
+                        this.removeAllChildren(); 
+                      }
                       //createjs.Sound.play("thunder", 0, 0, 0, 0, 0.5);
                       this._monsterBird.Reset();
                       this._bullets[j].Reset();              
@@ -179,6 +179,7 @@ module scenes {
         this.addChild(this._livesLabel);
         this.addChild(this._ashesLabel);      
         this.addChild(this._scoreLabel);
+       // this.addChild(this._backButton);
         for (let count = 0; count < this._bulletNum; count++) {
           this._bullets[count] = new objects.Bullet(this._assetManager,"bullet");
           this.addChild(this._bullets[count]);
@@ -189,6 +190,7 @@ module scenes {
           this.addChild(this._powerbullets[count]);
         }
         
+
   
         this._backButton.on("click", () => {
           this._currentScene = config.PLAY;

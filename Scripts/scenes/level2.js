@@ -97,15 +97,15 @@ var scenes;
                 //var size2 = bullets[j].sprite.size;
                 if (Math.sqrt(Math.pow(pos.x - pos2.x, 2) + Math.pow(pos.y - pos2.y, 2)) < (this._player.halfHeight + other.halfHeight)) {
                     if (!other.isColliding) {
-                        if (other.name == "enemy1") {
+                        if (other.name == "enemy") {
                             console.log("Collision with " + other.name);
-                            //  this._score += 100;
-                            //this._scoreLabel.text = "Score: " + this._score;
-                            // if(this._score>=800){
-                            //   this._currentScene = config.LEVEL2;
-                            //  // this._engineSound.stop();
-                            //   this.removeAllChildren(); 
-                            // }
+                            this._score += 100;
+                            this._scoreLabel.text = "Score: " + this._score;
+                            if (this._score >= 800) {
+                                this._currentScene = config.LEVEL2;
+                                // this._engineSound.stop();
+                                this.removeAllChildren();
+                            }
                             //createjs.Sound.play("thunder", 0, 0, 0, 0, 0.5);
                             this._monsterBird.Reset();
                             this._bullets[j].Reset();
@@ -127,6 +127,7 @@ var scenes;
             this.addChild(this._livesLabel);
             this.addChild(this._ashesLabel);
             this.addChild(this._scoreLabel);
+            // this.addChild(this._backButton);
             for (var count = 0; count < this._bulletNum; count++) {
                 this._bullets[count] = new objects.Bullet(this._assetManager, "bullet");
                 this.addChild(this._bullets[count]);
