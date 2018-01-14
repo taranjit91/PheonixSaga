@@ -26,7 +26,7 @@ module scenes {
     private _score: number;
     private _bulletsCount: number;
 
-    private _engineSound: createjs.AbstractSoundInstance;
+    private _gameSound: createjs.AbstractSoundInstance;
 
     private numberOfTicks = 0;
 
@@ -59,7 +59,7 @@ module scenes {
     // PUBLIC METHODS
     public Start(): void {
 
-      //this._engineSound = createjs.Sound.play("engine", 0, 0, 0, -1, 0.20, 0);
+     
       this._player = new objects.Phoenix(this._assetManager);
       this._background = new objects.Background(this._assetManager, "level2bg", 0);
       this._background1 = new objects.Background(this._assetManager, "level2bg", 800);
@@ -74,8 +74,7 @@ module scenes {
       this._enemyBullets = new Array<objects.EnemyBullet>();
       this._enemyBulletCounter = 0;
 
-      //console.log(this._bullets);
-      //console.log(this._enemyBullets);
+      this._gameSound = createjs.Sound.play("game", 0, 0, 0, -1, 0.50, 0);
 
       // For Player Life
       this._plife = new Array<objects.PLife>();
@@ -241,7 +240,7 @@ module scenes {
 
               if (this._score >= 700) {
                 this._currentScene = config.LEVEL3;
-                // this._engineSound.stop();
+                 this._gameSound.stop();
                 this.removeAllChildren();
               }
 
@@ -286,7 +285,7 @@ module scenes {
 
               if (this._lives <= 0) {
                 this._currentScene = config.END;
-                // this._engineSound.stop();
+                 this._gameSound.stop();
                 this.removeAllChildren(); 
               }
 
@@ -325,7 +324,7 @@ module scenes {
             //other.Reset();
             if (this._lives <= 0) {
               this._currentScene = config.END;
-              //  this._engineSound.stop();
+              //  this._gameSound.stop();
               this.removeAllChildren();
             }
             this._livesLabel.text = "Lives: " + this._lives;

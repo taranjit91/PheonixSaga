@@ -27,6 +27,8 @@
         { id: "enemyBoss", src: "./Assets/images/Groth_golka_boss.png" },
         { id: "plife", src: "./Assets/images/white-heart-md.png" },
         { id: "plife2", src: "./Assets/images/red-heart-md.png" },
+        { id: "game", src: "./Assets/audio/game.mp3" },
+        { id: "click", src: "./Assets/audio/click.wav" },
     ];
     var currentScene;
     var currentState;

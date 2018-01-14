@@ -40,17 +40,13 @@ module scenes {
         private _bulletLabel: objects.Label;
         private _powerBulletLabel: objects.Label;
 
+        private _livesLabel: objects.Label;
+        private _lives: number;
         private _logConuter: number = 0;
         private _isHit: boolean = false;
         private _hitTime: number = 50;
         private _hitCounter: number = 0;
-
-        // For Player Life
-        private _plife: objects.PLife[];
-        private _plife2: objects.PLife2[];
-        private _livesLabel: objects.Label;
-        private _lives: number;
-
+        private _gameSound: createjs.AbstractSoundInstance;
         // PUBLIC PROPERTIES
 
         // CONSTRUCTORS
@@ -73,6 +69,7 @@ module scenes {
             this._player = new objects.Phoenix(this._assetManager);
             this._monsterBoss = new objects.MonsterBoss(this._assetManager);
 
+            this._gameSound = createjs.Sound.play("game", 0, 0, 0, -1, 0.20, 0);
             // For Boss Bullet
             this._enemyBulletNum = 100;
             this._enemyBullets = new Array<objects.EnemyBullet>();
@@ -98,11 +95,8 @@ module scenes {
             this._bulletLabel = new objects.Label("Bullet: ", "16px", "gameFont", "#ffffff", 10, config.Screen.HEIGHT - 80, false);
             this._powerBulletLabel = new objects.Label("Power Bullet: ", "16px", "gameFont", "#ffffff", 10, config.Screen.HEIGHT - 50, false);
 
-            // For Player Life
             this._lives = 5;
-            this._livesLabel = new objects.Label("Lives: " + this._lives, "30px", "gameFont", "#ffffff", 10, 10, false);
-            this._plife = new Array<objects.PLife>();
-            this._plife2 = new Array<objects.PLife2>();
+            this._livesLabel = new objects.Label("Lives: " + this._lives, "30px", "gameFont", "#ffffffb", 10, 10, false);
 
             this._isHit = false;
             this._hitTime = 50;
@@ -186,7 +180,6 @@ module scenes {
 
                         if (this._isHit == false) {
                             this._lives -= 1;
-                            this._plife2[(this._lives)].Reset();
                             this._isHit = true;
                             this._player.Damaged();
                         }
@@ -209,7 +202,6 @@ module scenes {
 
                         if (this._isHit == false) {
                             this._lives -= 1;
-                            this._plife2[(this._lives)].Reset();
                             this._isHit = true;
                             this._player.Damaged();
                         }
@@ -232,7 +224,6 @@ module scenes {
 
                         if (this._isHit == false) {
                             this._lives -= 1;
-                            this._plife2[(this._lives)].Reset();
                             this._isHit = true;
                             this._player.Damaged();
                         }
@@ -256,6 +247,7 @@ module scenes {
 
             if (this._lives <= 0) {
                 this._currentScene = config.END;
+                this._gameSound.stop();
                 this.removeAllChildren();
             }
 
@@ -509,19 +501,7 @@ module scenes {
             this.addChild(this._bulletLabel);
             this.addChild(this._powerBulletLabel);
 
-            // For Player Life
-            //this.addChild(this._livesLabel);
-            for (let count = 0; count < this._lives; count++) {
-                this._plife[count] = new objects.PLife(this._assetManager);
-                this._plife[count].SetPosition(35 + (count*30), 50);
-                this.addChild(this._plife[count]);
-            }
-
-            for (let count = 0; count < this._lives; count++) {
-                this._plife2[count] = new objects.PLife2(this._assetManager);
-                this._plife2[count].SetPosition(35 + (count*30), 50);
-                this.addChild(this._plife2[count]);
-            }
+            this.addChild(this._livesLabel);
 
             this._createBossHPBar();
 

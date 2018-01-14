@@ -35,6 +35,7 @@ var scenes;
             this._backButton = new objects.Button(this._assetManager, "backButton", 400, 340, true);
             this._player = new objects.Phoenix(this._assetManager);
             this._monsterBoss = new objects.MonsterBoss(this._assetManager);
+            this._gameSound = createjs.Sound.play("game", 0, 0, 0, -1, 0.20, 0);
             // For Boss Bullet
             this._enemyBulletNum = 100;
             this._enemyBullets = new Array();
@@ -54,11 +55,8 @@ var scenes;
             this._powerbulletCounter = 0;
             this._bulletLabel = new objects.Label("Bullet: ", "16px", "gameFont", "#ffffff", 10, config.Screen.HEIGHT - 80, false);
             this._powerBulletLabel = new objects.Label("Power Bullet: ", "16px", "gameFont", "#ffffff", 10, config.Screen.HEIGHT - 50, false);
-            // For Player Life
             this._lives = 5;
-            this._livesLabel = new objects.Label("Lives: " + this._lives, "30px", "gameFont", "#ffffff", 10, 10, false);
-            this._plife = new Array();
-            this._plife2 = new Array();
+            this._livesLabel = new objects.Label("Lives: " + this._lives, "30px", "gameFont", "#ffffffb", 10, 10, false);
             this._isHit = false;
             this._hitTime = 50;
             this._hitCounter = 0;
@@ -127,7 +125,6 @@ var scenes;
                         //console.log("HitY: " + this._player.y + ", " + (this._player.y + offsetY) + ", " + pos2.y);
                         if (this._isHit == false) {
                             this._lives -= 1;
-                            this._plife2[(this._lives)].Reset();
                             this._isHit = true;
                             this._player.Damaged();
                         }
@@ -147,7 +144,6 @@ var scenes;
                         //console.log("HitY: " + this._player.y + ", " + (this._player.y + offsetY) + ", " + pos2.y);
                         if (this._isHit == false) {
                             this._lives -= 1;
-                            this._plife2[(this._lives)].Reset();
                             this._isHit = true;
                             this._player.Damaged();
                         }
@@ -167,7 +163,6 @@ var scenes;
                         console.log("HitY: " + this._player.y + ", " + (this._player.y + offsetY) + ", " + pos2.y);
                         if (this._isHit == false) {
                             this._lives -= 1;
-                            this._plife2[(this._lives)].Reset();
                             this._isHit = true;
                             this._player.Damaged();
                         }
@@ -188,6 +183,7 @@ var scenes;
             }
             if (this._lives <= 0) {
                 this._currentScene = config.END;
+                this._gameSound.stop();
                 this.removeAllChildren();
             }
             this._enemyBullets.forEach(function (enemyBullet) {
@@ -397,18 +393,7 @@ var scenes;
             }
             this.addChild(this._bulletLabel);
             this.addChild(this._powerBulletLabel);
-            // For Player Life
-            //this.addChild(this._livesLabel);
-            for (var count = 0; count < this._lives; count++) {
-                this._plife[count] = new objects.PLife(this._assetManager);
-                this._plife[count].SetPosition(35 + (count * 30), 50);
-                this.addChild(this._plife[count]);
-            }
-            for (var count = 0; count < this._lives; count++) {
-                this._plife2[count] = new objects.PLife2(this._assetManager);
-                this._plife2[count].SetPosition(35 + (count * 30), 50);
-                this.addChild(this._plife2[count]);
-            }
+            this.addChild(this._livesLabel);
             this._createBossHPBar();
             this._backButton.on("click", function () {
                 _this._currentScene = config.PLAY;

@@ -42,17 +42,20 @@ var scenes;
             this.addChild(this._startButton);
             this.addChild(this._levelsButton);
             this.addChild(this._tutorialButton);
-            this.addChild(this._exitButton);
+            // this.addChild(this._exitButton);
             this._startButton.on("click", function () {
                 _this._currentScene = config.PLAY;
+                _this._gameSound = createjs.Sound.play("click", 0, 0, 0, 0, 0.20, 0);
                 _this.removeAllChildren();
             });
             this._levelsButton.on("click", function () {
                 _this._currentScene = config.CHOOSELEVEL;
+                _this._gameSound = createjs.Sound.play("click", 0, 0, 0, 0, 0.20, 0);
                 _this.removeAllChildren();
             });
             this._tutorialButton.on("click", function () {
                 _this._currentScene = config.HOWTOPLAY;
+                _this._gameSound = createjs.Sound.play("click", 0, 0, 0, 0, 0.20, 0);
                 _this.removeAllChildren();
             });
         };

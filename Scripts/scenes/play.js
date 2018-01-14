@@ -32,7 +32,6 @@ var scenes;
         // PRIVATE METHODS
         // PUBLIC METHODS
         Play.prototype.Start = function () {
-            //this._engineSound = createjs.Sound.play("engine", 0, 0, 0, -1, 0.20, 0);
             this._player = new objects.Phoenix(this._assetManager);
             this._background = new objects.Background(this._assetManager, "level2bg", 0);
             this._background1 = new objects.Background(this._assetManager, "level2bg", 800);
@@ -45,8 +44,7 @@ var scenes;
             this._enemyBulletNum = 100;
             this._enemyBullets = new Array();
             this._enemyBulletCounter = 0;
-            //console.log(this._bullets);
-            //console.log(this._enemyBullets);
+            this._gameSound = createjs.Sound.play("game", 0, 0, 0, -1, 0.50, 0);
             // For Player Life
             this._plife = new Array();
             this._plife2 = new Array();
@@ -175,7 +173,7 @@ var scenes;
                             this._scoreLabel.text = "Score: " + this._score;
                             if (this._score >= 700) {
                                 this._currentScene = config.LEVEL3;
-                                // this._engineSound.stop();
+                                this._gameSound.stop();
                                 this.removeAllChildren();
                             }
                             //createjs.Sound.play("thunder", 0, 0, 0, 0, 0.5);
@@ -213,7 +211,7 @@ var scenes;
                             this._livesLabel.text = "Lives: " + this._lives;
                             if (this._lives <= 0) {
                                 this._currentScene = config.END;
-                                // this._engineSound.stop();
+                                this._gameSound.stop();
                                 this.removeAllChildren();
                             }
                             //createjs.Sound.play("thunder", 0, 0, 0, 0, 0.5);
@@ -248,7 +246,7 @@ var scenes;
                         //other.Reset();
                         if (this._lives <= 0) {
                             this._currentScene = config.END;
-                            //  this._engineSound.stop();
+                            //  this._gameSound.stop();
                             this.removeAllChildren();
                         }
                         this._livesLabel.text = "Lives: " + this._lives;

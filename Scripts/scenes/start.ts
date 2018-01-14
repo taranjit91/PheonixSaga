@@ -10,7 +10,7 @@ module scenes {
     private _tutorialButton:objects.Button;
     private _exitButton:objects.Button;
     private _instructionsButton:objects.Button;
-
+    private _gameSound: createjs.AbstractSoundInstance;
     // PUBLIC PROPERTIES
 
     // CONSTRUCTORS
@@ -25,7 +25,7 @@ module scenes {
     // PUBLIC METHODS
     public Start():void {
       this._bg = new objects.Background(this._assetManager,"defaultbg",0);
-        
+     
       this._welcomeLabel = new objects.Label("PHOENIX SAGA", "50px", "gameFont", "#b42e2e", 400, 40, true);
       this._startButton = new objects.Button(this._assetManager, "startButton", 400, 150, true);
       this._levelsButton = new objects.Button(this._assetManager, "levels", 400, 230, true);      
@@ -48,20 +48,23 @@ module scenes {
       this.addChild(this._startButton);
       this.addChild(this._levelsButton);
       this.addChild(this._tutorialButton);
-      this.addChild(this._exitButton);
+     // this.addChild(this._exitButton);
 
       this._startButton.on("click", () => {
         this._currentScene = config.PLAY;
+        this._gameSound = createjs.Sound.play("click", 0, 0, 0, 0, 0.20, 0);
         this.removeAllChildren();
       });
 
       this._levelsButton.on("click", () => {
         this._currentScene = config.CHOOSELEVEL;
+        this._gameSound = createjs.Sound.play("click", 0, 0, 0, 0, 0.20, 0);
         this.removeAllChildren();
       });
 
       this._tutorialButton.on("click", () => {
         this._currentScene = config.HOWTOPLAY;
+        this._gameSound = createjs.Sound.play("click", 0, 0, 0, 0, 0.20, 0);
         this.removeAllChildren();
       });
     }
