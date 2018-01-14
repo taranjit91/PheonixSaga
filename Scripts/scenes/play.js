@@ -18,6 +18,9 @@ var scenes;
         function Play(assetManager, currentScene) {
             var _this = _super.call(this) || this;
             _this.numberOfTicks = 0;
+            _this._isHit = false;
+            _this._hitTime = 50;
+            _this._hitCounter = 0;
             _this._assetManager = assetManager;
             _this._currentScene = currentScene;
             // SEAN Begin ----------------------------
@@ -49,6 +52,9 @@ var scenes;
             this._livesLabel = new objects.Label("Lives: " + this._lives, "30px", "gameFont", "#b42e2e", 10, 10, false);
             this._scoreLabel = new objects.Label("Score: " + this._score, "30px", "gameFont", "#b42e2e", 550, 10, false);
             this._ashesLabel = new objects.Label("Ashes: 0%", "30px", "gameFont", "#b42e2e", 250, 10, false);
+            this._isHit = false;
+            this._hitTime = 50;
+            this._hitCounter = 0;
             this.Main();
         };
         Play.prototype.Update = function () {
@@ -85,6 +91,13 @@ var scenes;
             //   obstacle.Update();
             //   this._checkCollision(obstacle);
             // });
+            if (this._isHit == true) {
+                this._hitCounter++;
+                if (this._hitCounter > this._hitTime) {
+                    this._hitCounter = 0;
+                    this._isHit = false;
+                }
+            }
             return this._currentScene;
         };
         Play.prototype.BirdMovementPattern = function () {
@@ -144,7 +157,6 @@ var scenes;
                     if (!other.isColliding) {
                         //console.log("Collision with " + other.name);
                         if (other.name == "enemy1") {
-                            //console.log("Collision with " + other.name);
                             this._score += 100;
                             this._scoreLabel.text = "Score: " + this._score;
                             if (this._score >= 400) {
@@ -178,9 +190,13 @@ var scenes;
                     if (!other.isColliding) {
                         //console.log("Collision with " + other.name);
                         if (other.name == "phoenix_play") {
-                            //console.log("Collision with " + other.name);
-                            this._player.Damaged();
-                            this._lives = this._lives - 1;
+                            if (this._isHit == false) {
+                                this._lives -= 1;
+                                this._isHit = true;
+                                this._player.Damaged();
+                            }
+                            // this._player.Damaged();
+                            // this._lives = this._lives - 1;
                             this._livesLabel.text = "Lives: " + this._lives;
                             if (this._lives <= 0) {
                                 //  this._currentScene = config.LEVEL2;

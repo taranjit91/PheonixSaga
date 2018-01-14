@@ -31,10 +31,15 @@ module scenes {
 
     private numberOfTicks = 0;
 
+    private _isHit: boolean = false;
+    private _hitTime: number = 50;
+    private _hitCounter: number = 0;
+
     // SEAN Begin ----------------------------
     private _inputManager: core.InputManager;
     private _inputData: core.InputData;
     // SEAN End ------------------------------
+
     // PUBLIC PROPERTIES
 
     // CONSTRUCTORS
@@ -70,7 +75,6 @@ module scenes {
       this._enemyBullets = new Array<objects.EnemyBullet>();
       this._enemyBulletCounter = 0;
 
-
       //console.log(this._bullets);
       //console.log(this._enemyBullets);
 
@@ -80,6 +84,10 @@ module scenes {
       this._livesLabel = new objects.Label("Lives: " + this._lives, "30px", "gameFont", "#b42e2e", 10, 10, false);
       this._scoreLabel = new objects.Label("Score: " + this._score, "30px", "gameFont", "#b42e2e", 550, 10, false);
       this._ashesLabel = new objects.Label("Ashes: 0%", "30px", "gameFont", "#b42e2e", 250, 10, false);
+
+      this._isHit = false;
+      this._hitTime = 50;
+      this._hitCounter = 0;
 
       this.Main();
 
@@ -92,6 +100,7 @@ module scenes {
       this._background1.update();
       this._player.Update();
       this.BirdMovementPattern();
+
       // SEAN Begin ----------------------------
       this._player.UpdatePosition(this._inputData);
       if (this._player.TriggerFire(this._inputData)) {
@@ -118,15 +127,23 @@ module scenes {
         enemyBullet.Update();
         //  this._checkCollisionsEnemyBullet(enemyBullet);
       });
+
       this._checkCollisionsEnemyBullet(this._player);
       // this._obstacles.forEach(obstacle => {
       //   obstacle.Update();
       //   this._checkCollision(obstacle);
       // });
 
+      if (this._isHit == true) {
+        this._hitCounter++;
+        if (this._hitCounter > this._hitTime) {
+            this._hitCounter = 0;
+            this._isHit = false;
+        }
+      }
+
       return this._currentScene;
     }
-
 
 
     BirdMovementPattern(): void {
@@ -203,9 +220,10 @@ module scenes {
           if (!other.isColliding) {
             //console.log("Collision with " + other.name);
             if (other.name == "enemy1") {
-              //console.log("Collision with " + other.name);
+              
               this._score += 100;
               this._scoreLabel.text = "Score: " + this._score;
+
               if (this._score >= 400) {
                 this._currentScene = config.LEVEL2;
                 // this._engineSound.stop();
@@ -242,10 +260,16 @@ module scenes {
           if (!other.isColliding) {
             //console.log("Collision with " + other.name);
             if (other.name == "phoenix_play") {
-              //console.log("Collision with " + other.name);
-              this._player.Damaged();
-              this._lives = this._lives - 1;
+
+              if (this._isHit == false) {
+                this._lives -= 1;
+                this._isHit = true;
+                this._player.Damaged();
+              }
+              // this._player.Damaged();
+              // this._lives = this._lives - 1;
               this._livesLabel.text = "Lives: " + this._lives;
+
               if (this._lives <= 0) {
                 //  this._currentScene = config.LEVEL2;
                 // this._engineSound.stop();
