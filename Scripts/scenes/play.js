@@ -49,6 +49,7 @@ var scenes;
             //console.log(this._enemyBullets);
             // For Player Life
             this._plife = new Array();
+            this._plife2 = new Array();
             this._lives = 5;
             this._score = 0;
             this._livesLabel = new objects.Label("Lives: " + this._lives, "30px", "gameFont", "#b42e2e", 10, 10, false);
@@ -124,14 +125,19 @@ var scenes;
             //   this._obstacles[count] = new objects.Obstacle(this._assetManager);
             //   this.addChild(this._obstacles[count]);
             // }
-            // For Life
+            // For Player Life
             for (var count = 0; count < this._lives; count++) {
                 this._plife[count] = new objects.PLife(this._assetManager);
                 this._plife[count].SetPosition(35 + (count * 30), 50);
                 this.addChild(this._plife[count]);
             }
+            for (var count = 0; count < this._lives; count++) {
+                this._plife2[count] = new objects.PLife2(this._assetManager);
+                this._plife2[count].SetPosition(35 + (count * 30), 50);
+                this.addChild(this._plife2[count]);
+            }
             //this.addChild(this._livesLabel);
-            // this.addChild(this._ashesLabel);
+            //this.addChild(this._ashesLabel);
             this.addChild(this._scoreLabel);
         };
         Play.prototype._bulletFire = function () {
@@ -200,7 +206,7 @@ var scenes;
                         if (other.name == "phoenix_play") {
                             if (this._isHit == false) {
                                 this._lives -= 1;
-                                this._plife[(this._lives)].Reset();
+                                this._plife2[(this._lives)].Reset();
                                 this._isHit = true;
                                 this._player.Damaged();
                             }

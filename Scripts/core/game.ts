@@ -29,6 +29,7 @@
     {id: "enemy1", src:"./Assets/images/enemy1.png"},
     {id: "enemyBoss", src:"./Assets/images/Groth_golka_boss.png"},
     {id: "plife", src: "./Assets/images/white-heart-md.png"},
+    {id: "plife2", src: "./Assets/images/red-heart-md.png"},
   ];
 
      

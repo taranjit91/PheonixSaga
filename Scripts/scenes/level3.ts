@@ -47,6 +47,7 @@ module scenes {
 
         // For Player Life
         private _plife: objects.PLife[];
+        private _plife2: objects.PLife2[];
         private _livesLabel: objects.Label;
         private _lives: number;
 
@@ -101,6 +102,7 @@ module scenes {
             this._lives = 5;
             this._livesLabel = new objects.Label("Lives: " + this._lives, "30px", "gameFont", "#ffffff", 10, 10, false);
             this._plife = new Array<objects.PLife>();
+            this._plife2 = new Array<objects.PLife2>();
 
             this._isHit = false;
             this._hitTime = 50;
@@ -184,6 +186,7 @@ module scenes {
 
                         if (this._isHit == false) {
                             this._lives -= 1;
+                            this._plife2[(this._lives)].Reset();
                             this._isHit = true;
                             this._player.Damaged();
                         }
@@ -206,6 +209,7 @@ module scenes {
 
                         if (this._isHit == false) {
                             this._lives -= 1;
+                            this._plife2[(this._lives)].Reset();
                             this._isHit = true;
                             this._player.Damaged();
                         }
@@ -228,7 +232,7 @@ module scenes {
 
                         if (this._isHit == false) {
                             this._lives -= 1;
-                            this._plife[(this._lives)].Reset();
+                            this._plife2[(this._lives)].Reset();
                             this._isHit = true;
                             this._player.Damaged();
                         }
@@ -507,11 +511,16 @@ module scenes {
 
             // For Player Life
             //this.addChild(this._livesLabel);
-            // For Life
             for (let count = 0; count < this._lives; count++) {
                 this._plife[count] = new objects.PLife(this._assetManager);
                 this._plife[count].SetPosition(35 + (count*30), 50);
                 this.addChild(this._plife[count]);
+            }
+
+            for (let count = 0; count < this._lives; count++) {
+                this._plife2[count] = new objects.PLife2(this._assetManager);
+                this._plife2[count].SetPosition(35 + (count*30), 50);
+                this.addChild(this._plife2[count]);
             }
 
             this._createBossHPBar();

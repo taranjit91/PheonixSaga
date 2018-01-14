@@ -1,12 +1,12 @@
 module objects {
-    export class PLife extends objects.GameObject {
+    export class PLife2 extends objects.GameObject {
         // PRIVATE INSTANCE VARIABLES
   
         // PUBLIC PROPERTIES
     
         // CONSTRUCTORS
         constructor(assetManager: createjs.LoadQueue) {
-            super(assetManager, "plife");
+            super(assetManager, "plife2");
             this.Start();
         }
         

@@ -36,6 +36,7 @@ module scenes {
 
     // For Player Life
     private _plife: objects.PLife[];
+    private _plife2: objects.PLife2[];
 
     // SEAN Begin ----------------------------
     private _inputManager: core.InputManager;
@@ -77,7 +78,8 @@ module scenes {
       //console.log(this._enemyBullets);
 
       // For Player Life
-      this._plife = new Array<objects.PLife>(); 
+      this._plife = new Array<objects.PLife>();
+      this._plife2 = new Array<objects.PLife2>();
       this._lives = 5;
 
       this._score = 0;
@@ -175,15 +177,21 @@ module scenes {
       //   this.addChild(this._obstacles[count]);
       // }
 
-      // For Life
+      // For Player Life
       for (let count = 0; count < this._lives; count++) {
         this._plife[count] = new objects.PLife(this._assetManager);
         this._plife[count].SetPosition(35 + (count*30), 50);
         this.addChild(this._plife[count]);
       }
 
+      for (let count = 0; count < this._lives; count++) {
+        this._plife2[count] = new objects.PLife2(this._assetManager);
+        this._plife2[count].SetPosition(35 + (count*30), 50);
+        this.addChild(this._plife2[count]);
+      }
+
       //this.addChild(this._livesLabel);
-     // this.addChild(this._ashesLabel);
+      //this.addChild(this._ashesLabel);
       this.addChild(this._scoreLabel);
     }
 
@@ -269,7 +277,7 @@ module scenes {
 
               if (this._isHit == false) {
                 this._lives -= 1;
-                this._plife[(this._lives)].Reset();
+                this._plife2[(this._lives)].Reset();
                 this._isHit = true;
                 this._player.Damaged();
               }

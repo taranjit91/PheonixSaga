@@ -58,6 +58,7 @@ var scenes;
             this._lives = 5;
             this._livesLabel = new objects.Label("Lives: " + this._lives, "30px", "gameFont", "#ffffff", 10, 10, false);
             this._plife = new Array();
+            this._plife2 = new Array();
             this._isHit = false;
             this._hitTime = 50;
             this._hitCounter = 0;
@@ -126,6 +127,7 @@ var scenes;
                         //console.log("HitY: " + this._player.y + ", " + (this._player.y + offsetY) + ", " + pos2.y);
                         if (this._isHit == false) {
                             this._lives -= 1;
+                            this._plife2[(this._lives)].Reset();
                             this._isHit = true;
                             this._player.Damaged();
                         }
@@ -145,6 +147,7 @@ var scenes;
                         //console.log("HitY: " + this._player.y + ", " + (this._player.y + offsetY) + ", " + pos2.y);
                         if (this._isHit == false) {
                             this._lives -= 1;
+                            this._plife2[(this._lives)].Reset();
                             this._isHit = true;
                             this._player.Damaged();
                         }
@@ -164,7 +167,7 @@ var scenes;
                         console.log("HitY: " + this._player.y + ", " + (this._player.y + offsetY) + ", " + pos2.y);
                         if (this._isHit == false) {
                             this._lives -= 1;
-                            this._plife[(this._lives)].Reset();
+                            this._plife2[(this._lives)].Reset();
                             this._isHit = true;
                             this._player.Damaged();
                         }
@@ -396,11 +399,15 @@ var scenes;
             this.addChild(this._powerBulletLabel);
             // For Player Life
             //this.addChild(this._livesLabel);
-            // For Life
             for (var count = 0; count < this._lives; count++) {
                 this._plife[count] = new objects.PLife(this._assetManager);
                 this._plife[count].SetPosition(35 + (count * 30), 50);
                 this.addChild(this._plife[count]);
+            }
+            for (var count = 0; count < this._lives; count++) {
+                this._plife2[count] = new objects.PLife2(this._assetManager);
+                this._plife2[count].SetPosition(35 + (count * 30), 50);
+                this.addChild(this._plife2[count]);
             }
             this._createBossHPBar();
             this._backButton.on("click", function () {
