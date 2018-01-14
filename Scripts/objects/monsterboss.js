@@ -17,6 +17,9 @@ var objects;
             var _this = _super.call(this, assetManager, "enemyBoss") || this;
             _this._dyF = true; // distinguish +-
             _this._dxF = true; // distinguish +-
+            _this._2ndMovement = false;
+            _this._2ndTempSwitch = false;
+            _this._3rdTempSwitch = false;
             _this._life = 20;
             _this._dead = false;
             _this.Start();
@@ -92,6 +95,36 @@ var objects;
             this.position.x = this.x;
             this.position.y = this.y;
         };
+        MonsterBoss.prototype._updatePosition2nd = function () {
+            if (this._3rdTempSwitch == false) {
+                this.x += 5;
+            }
+            else {
+                this.x -= 5;
+            }
+            if (this._2ndTempSwitch == false) {
+                if (this.position.x > (config.Screen.WIDTH * 1.5)) {
+                    this.x = 0 - this.width;
+                    this._2ndTempSwitch = true;
+                }
+            }
+            else {
+                if (this._3rdTempSwitch == true) {
+                    if (this.position.x < -(config.Screen.WIDTH * 0.5)) {
+                        this.x = config.Screen.WIDTH + this.width;
+                        this._2ndTempSwitch = false;
+                        this._3rdTempSwitch = false;
+                        this._2ndMovement = false;
+                    }
+                }
+                else {
+                    if (this.position.x > (config.Screen.WIDTH * 0.5)) {
+                        this._3rdTempSwitch = true;
+                    }
+                }
+            }
+            this.position.x = this.x;
+        };
         MonsterBoss.prototype.Damaged = function (bulletType) {
             if (bulletType == 1) {
                 this._life = this._life - 2;
@@ -100,6 +133,9 @@ var objects;
                 this._life = this._life - 1;
             }
             this._hitTime = createjs.Ticker.getTime();
+            if ((this._life % 4) == 0) {
+                this._2ndMovement = true;
+            }
             if (this._life <= 0) {
                 this.Reset();
             }
@@ -109,8 +145,13 @@ var objects;
             this.bulletSpawn.y = this.y + 20;
             this.powerBulletSpawn.x = this.x;
             this.powerBulletSpawn.y = this.y + 20;
-            this._updatePosition();
-            this._checkBounds();
+            if (this._2ndMovement == true) {
+                this._updatePosition2nd();
+            }
+            else {
+                this._updatePosition();
+                this._checkBounds();
+            }
             this._bulletTriggerCount++;
             if (this._bulletTriggerCount > this._bulletTriggerPoint) {
                 //console.log(this._bulletTriggerCount);
@@ -135,6 +176,12 @@ var objects;
         };
         MonsterBoss.prototype.TriggerFire = function () {
             return this._bulletTrigger;
+        };
+        MonsterBoss.prototype.Set2ndMovement = function (changeMovement) {
+            this._2ndMovement = changeMovement;
+        };
+        MonsterBoss.prototype.Get2ndMovement = function () {
+            return this._2ndMovement;
         };
         return MonsterBoss;
     }(objects.GameObject));
