@@ -54,8 +54,10 @@ var scenes;
             this._powerbulletCounter = 0;
             this._bulletLabel = new objects.Label("Bullet: ", "16px", "gameFont", "#ffffff", 10, config.Screen.HEIGHT - 80, false);
             this._powerBulletLabel = new objects.Label("Power Bullet: ", "16px", "gameFont", "#ffffff", 10, config.Screen.HEIGHT - 50, false);
+            // For Player Life
             this._lives = 5;
             this._livesLabel = new objects.Label("Lives: " + this._lives, "30px", "gameFont", "#ffffff", 10, 10, false);
+            this._plife = new Array();
             this._isHit = false;
             this._hitTime = 50;
             this._hitCounter = 0;
@@ -162,6 +164,7 @@ var scenes;
                         console.log("HitY: " + this._player.y + ", " + (this._player.y + offsetY) + ", " + pos2.y);
                         if (this._isHit == false) {
                             this._lives -= 1;
+                            this._plife[(this._lives)].Reset();
                             this._isHit = true;
                             this._player.Damaged();
                         }
@@ -391,7 +394,14 @@ var scenes;
             }
             this.addChild(this._bulletLabel);
             this.addChild(this._powerBulletLabel);
-            this.addChild(this._livesLabel);
+            // For Player Life
+            //this.addChild(this._livesLabel);
+            // For Life
+            for (var count = 0; count < this._lives; count++) {
+                this._plife[count] = new objects.PLife(this._assetManager);
+                this._plife[count].SetPosition(35 + (count * 30), 50);
+                this.addChild(this._plife[count]);
+            }
             this._createBossHPBar();
             this._backButton.on("click", function () {
                 _this._currentScene = config.PLAY;

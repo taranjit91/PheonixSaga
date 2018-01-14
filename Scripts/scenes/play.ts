@@ -178,7 +178,7 @@ module scenes {
       // For Life
       for (let count = 0; count < this._lives; count++) {
         this._plife[count] = new objects.PLife(this._assetManager);
-        this._plife[count].SetPosition(35 + (count*30), 15);
+        this._plife[count].SetPosition(35 + (count*30), 50);
         this.addChild(this._plife[count]);
       }
 
