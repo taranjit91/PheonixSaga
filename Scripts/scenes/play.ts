@@ -34,6 +34,9 @@ module scenes {
     private _hitTime: number = 50;
     private _hitCounter: number = 0;
 
+    // For Player Life
+    private _plife: objects.PLife[];
+
     // SEAN Begin ----------------------------
     private _inputManager: core.InputManager;
     private _inputData: core.InputData;
@@ -73,7 +76,10 @@ module scenes {
       //console.log(this._bullets);
       //console.log(this._enemyBullets);
 
+      // For Player Life
+      this._plife = new Array<objects.PLife>(); 
       this._lives = 5;
+
       this._score = 0;
 
       this._livesLabel = new objects.Label("Lives: " + this._lives, "30px", "gameFont", "#b42e2e", 10, 10, false);
@@ -168,6 +174,14 @@ module scenes {
       //   this._obstacles[count] = new objects.Obstacle(this._assetManager);
       //   this.addChild(this._obstacles[count]);
       // }
+
+      // For Life
+      for (let count = 0; count < this._lives; count++) {
+        this._plife[count] = new objects.PLife(this._assetManager);
+        this._plife[count].SetPosition(35 + (count*30), 15);
+        this.addChild(this._plife[count]);
+      }
+
       this.addChild(this._livesLabel);
      // this.addChild(this._ashesLabel);
       this.addChild(this._scoreLabel);
@@ -255,6 +269,7 @@ module scenes {
 
               if (this._isHit == false) {
                 this._lives -= 1;
+                this._plife[(this._lives)].Reset();
                 this._isHit = true;
                 this._player.Damaged();
               }

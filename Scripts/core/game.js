@@ -25,6 +25,7 @@
         { id: "powerBullet", src: "./Assets/images/pb1.png" },
         { id: "enemy1", src: "./Assets/images/enemy1.png" },
         { id: "enemyBoss", src: "./Assets/images/Groth_golka_boss.png" },
+        { id: "plife", src: "./Assets/images/white-heart-md.png" },
     ];
     var currentScene;
     var currentState;
