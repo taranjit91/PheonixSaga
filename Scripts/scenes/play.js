@@ -130,7 +130,7 @@ var scenes;
                 this._plife[count].SetPosition(35 + (count * 30), 15);
                 this.addChild(this._plife[count]);
             }
-            this.addChild(this._livesLabel);
+            //this.addChild(this._livesLabel);
             // this.addChild(this._ashesLabel);
             this.addChild(this._scoreLabel);
         };

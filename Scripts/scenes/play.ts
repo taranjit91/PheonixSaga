@@ -182,7 +182,7 @@ module scenes {
         this.addChild(this._plife[count]);
       }
 
-      this.addChild(this._livesLabel);
+      //this.addChild(this._livesLabel);
      // this.addChild(this._ashesLabel);
       this.addChild(this._scoreLabel);
     }
