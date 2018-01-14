@@ -2,6 +2,7 @@ module objects {
     export class Phoenix extends objects.GameObject {
         // PRIVATE INSTANCE VARIABLES  
         private _speed: number;
+        private _hitTime: number;
   
         // PUBLIC PROPERTIES
         bulletSpawn:createjs.Point;
@@ -69,8 +70,22 @@ module objects {
             this.powerBulletSpawn.x = this.x;
             this.powerBulletSpawn.y = this.y - 20;
             this._checkBounds();
+
+            if (createjs.Ticker.getTime() - this._hitTime < 400) {
+                if (createjs.Ticker.getTime() % 20 >= 10) {
+                    this.alpha = 0.5;
+                } else {
+                    this.alpha = 1;
+                }
+              }
+              else {
+                  this.alpha = 1;
+              }
         }
-  
+
+        public Damaged():void {
+            this._hitTime = createjs.Ticker.getTime();
+        } 
       
         public UpdatePosition(_inputData:core.InputData) {
             if(_inputData.up == true)

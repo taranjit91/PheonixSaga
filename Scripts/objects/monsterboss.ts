@@ -150,7 +150,7 @@ module objects {
       }
       this._hitTime = createjs.Ticker.getTime();
 
-      if((this._life / 4) == 0) {
+      if((this._life % 4) == 0) {
         this._2ndMovement = true;
       }
 

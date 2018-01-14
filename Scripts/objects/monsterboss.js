@@ -133,7 +133,7 @@ var objects;
                 this._life = this._life - 1;
             }
             this._hitTime = createjs.Ticker.getTime();
-            if ((this._life / 4) == 0) {
+            if ((this._life % 4) == 0) {
                 this._2ndMovement = true;
             }
             if (this._life <= 0) {

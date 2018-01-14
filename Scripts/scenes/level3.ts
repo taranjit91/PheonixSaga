@@ -40,6 +40,13 @@ module scenes {
         private _bulletLabel:objects.Label;
         private _powerBulletLabel:objects.Label;
 
+        private _livesLabel: objects.Label;
+        private _lives: number;
+        private _logConuter: number = 0;
+        private _isHit: boolean = false;
+        private _hitTime: number = 50;
+        private _hitCounter: number = 0;
+
         // PUBLIC PROPERTIES
   
         // CONSTRUCTORS
@@ -86,7 +93,14 @@ module scenes {
 
         this._bulletLabel = new objects.Label("Bullet: ", "16px", "gameFont", "#ffffff", 10, config.Screen.HEIGHT - 80, false); 
         this._powerBulletLabel = new objects.Label("Power Bullet: ", "16px", "gameFont", "#ffffff", 10, config.Screen.HEIGHT - 50, false); 
+    
+        this._lives = 5;
+        this._livesLabel = new objects.Label("Lives: " + this._lives, "30px", "gameFont", "#b42e2e", 10, 10, false);
         
+        this._isHit = false;
+        this._hitTime = 50;
+        this._hitCounter = 0;
+
         this.Main();
       }
   
@@ -144,7 +158,104 @@ module scenes {
         });
 
         // For Enemy Bullet
-        this._checkCollisionsEnemyBullet(this._player);
+        //this._checkCollisionsEnemyBullet(this._player);
+        // this._logConuter++;
+        // if(this._logConuter > 50 ) {
+        //     this._logConuter = 0;
+        //     console.log("" + this._player.x + ", " + this._player.y );
+        // }
+
+        var offsetX = this._player.width * 0.5;
+        var offsetY = this._player.height * 0.5;
+
+        // Temp Bullet Collision
+        for(var j = 0; j < this._enemyBullets.length; j++) {
+            var pos2 = this._enemyBullets[j].position;             
+            
+            if( (this._player.x - offsetX) < pos2.x && (this._player.x) > pos2.x 
+                  && (this._player.y - offsetY) < pos2.y && (this._player.y) > pos2.y)
+            {
+                if(!this._player.isColliding){
+                    //console.log("HitX: " + this._player.x + ", " + (this._player.x + offsetX) + ", " + pos2.x);
+                    //console.log("HitY: " + this._player.y + ", " + (this._player.y + offsetY) + ", " + pos2.y);
+
+                    if( this._isHit == false ) {
+                        this._lives -= 1;
+                        this._isHit = true;
+                        this._player.Damaged();
+                    }
+                    this._player.isColliding = true;
+                }                
+            }
+            else 
+            {
+                this._player.isColliding = false;
+            }
+        }
+
+        for(var j = 0; j < this._enemyBulletsL.length; j++) {
+            var pos2 = this._enemyBulletsL[j].position;             
+            
+            if( (this._player.x - offsetX) < pos2.x && (this._player.x) > pos2.x 
+                  && (this._player.y - offsetY) < pos2.y && (this._player.y) > pos2.y)
+            {
+                if(!this._player.isColliding){
+                    //console.log("HitX: " + this._player.x + ", " + (this._player.x + offsetX) + ", " + pos2.x);
+                    //console.log("HitY: " + this._player.y + ", " + (this._player.y + offsetY) + ", " + pos2.y);
+
+                    if( this._isHit == false ) {
+                        this._lives -= 1;
+                        this._isHit = true;
+                        this._player.Damaged();
+                    }
+                    this._player.isColliding = true;
+                }                
+            }
+            else 
+            {
+                this._player.isColliding = false;
+            }
+        }
+
+        for(var j = 0; j < this._enemyBulletsR.length; j++) {
+            var pos2 = this._enemyBulletsR[j].position;             
+            
+            if( (this._player.x - offsetX) < pos2.x && (this._player.x) > pos2.x 
+                  && (this._player.y - offsetY) < pos2.y && (this._player.y) > pos2.y)
+            {
+                if(!this._player.isColliding){
+                    console.log("HitX: " + this._player.x + ", " + (this._player.x + offsetX) + ", " + pos2.x);
+                    console.log("HitY: " + this._player.y + ", " + (this._player.y + offsetY) + ", " + pos2.y);
+
+                    if( this._isHit == false ) {
+                        this._lives -= 1;
+                        this._isHit = true;
+                        this._player.Damaged();
+                    }
+                    this._player.isColliding = true;
+                }                
+            }
+            else 
+            {
+                this._player.isColliding = false;
+            }
+        }
+
+        this._livesLabel.text = "Lives: " + this._lives;
+
+        if( this._isHit == true ) {
+            this._hitCounter++;
+            if(this._hitCounter > this._hitTime){
+                this._hitCounter = 0;
+                this._isHit = false;
+            }
+        }
+
+        if(this._lives <= 0) {
+            this._currentScene = config.END;
+            this.removeAllChildren();                
+        }
+
         this._enemyBullets.forEach(enemyBullet => {
             enemyBullet.Update();
         });
@@ -216,21 +327,17 @@ module scenes {
 
       private _checkCollisionsEnemyBullet(other:objects.GameObject) {
         var pos = this._player.position;
+        var offsetX = this._player.width;
+        var offsetY = this._player.height;
+
         //console.log("Collision with " + pos);
           for(var j = 0; j < this._enemyBullets.length; j++) {
-              var pos2 = this._enemyBullets[j].position;
-  
-              if(Math.sqrt(Math.pow(pos.x - pos2.x, 2) + Math.pow(pos.y - pos2.y, 2)) <(
-                this._player.halfHeight + other.halfHeight))
-                {
-                
-                  if(!other.isColliding)
-                  {  
-                    //console.log("Collision with " + other.name);
-                    if(other.name == "phoenix_play"){
-                      
-                    }                    
-                }                    
+              var pos2 = this._enemyBullets[j].position;             
+              
+              if( pos.x < pos2.x && (pos.x + offsetX) > pos2.x 
+                    && pos.y < pos2.y && (pos.y + offsetY) > pos2.y)
+              {
+                console.log("Hit");
                 other.isColliding = true;
               }
               else 
@@ -280,12 +387,13 @@ module scenes {
             if(Math.sqrt(Math.pow(pos.x - pos2.x, 2) + Math.pow(pos.y - pos2.y, 2)) <(
             this._player.halfHeight + other.halfHeight))
             {
-                console.log("other position: " + other.position);
+                //console.log("other position: " + other.position);
                 if(!other.isColliding)
                 {
                     //console.log("Collision with " + other.name);
                     if(other.name == "enemyBoss")
                     {                  
+                        console.log("TEST1");
                         this._monsterBoss.Damaged(0);
                         this._bullets[j].Reset(); 
 
@@ -411,6 +519,8 @@ module scenes {
         
         this.addChild(this._bulletLabel);
         this.addChild(this._powerBulletLabel);
+
+        this.addChild(this._livesLabel);
         
         this._createBossHPBar();
   

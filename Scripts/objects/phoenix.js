@@ -68,6 +68,20 @@ var objects;
             this.powerBulletSpawn.x = this.x;
             this.powerBulletSpawn.y = this.y - 20;
             this._checkBounds();
+            if (createjs.Ticker.getTime() - this._hitTime < 400) {
+                if (createjs.Ticker.getTime() % 20 >= 10) {
+                    this.alpha = 0.5;
+                }
+                else {
+                    this.alpha = 1;
+                }
+            }
+            else {
+                this.alpha = 1;
+            }
+        };
+        Phoenix.prototype.Damaged = function () {
+            this._hitTime = createjs.Ticker.getTime();
         };
         Phoenix.prototype.UpdatePosition = function (_inputData) {
             if (_inputData.up == true)

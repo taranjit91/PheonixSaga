@@ -140,11 +140,11 @@ var scenes;
                 var pos2 = this._bullets[j].position;
                 //var size2 = bullets[j].sprite.size;
                 if (Math.sqrt(Math.pow(pos.x - pos2.x, 2) + Math.pow(pos.y - pos2.y, 2)) < (this._player.halfHeight + other.halfHeight)) {
-                    console.log("first page :: " + Math.sqrt(Math.pow(pos.x - pos2.x, 2) + Math.pow(pos.y - pos2.y, 2)) + " is to : " + this._player.halfHeight / 2 + other.halfHeight / 2);
+                    //console.log("first page :: "+Math.sqrt(Math.pow(pos.x - pos2.x, 2) + Math.pow(pos.y - pos2.y, 2)) +" is to : "+this._player.halfHeight/2 + other.halfHeight/2)
                     if (!other.isColliding) {
-                        console.log("Collision with " + other.name);
+                        //console.log("Collision with " + other.name);
                         if (other.name == "enemy1") {
-                            console.log("Collision with " + other.name);
+                            //console.log("Collision with " + other.name);
                             this._score += 100;
                             this._scoreLabel.text = "Score: " + this._score;
                             if (this._score >= 400) {
@@ -174,11 +174,11 @@ var scenes;
                 if (Math.sqrt(Math.pow(pos.x - pos2.x, 2) + Math.pow(pos.y - pos2.y, 2)) < (
                 //               this._monsterBird.halfHeight + other.halfHeight))
                 60)) {
-                    console.log("second page :: " + Math.sqrt(Math.pow(pos.x - pos2.x, 2) + Math.pow(pos.y - pos2.y, 2)) + " is to : " + 209);
+                    //console.log("second page :: "+Math.sqrt(Math.pow(pos.x - pos2.x, 2) + Math.pow(pos.y - pos2.y, 2)) +" is to : "+209)
                     if (!other.isColliding) {
-                        console.log("Collision with " + other.name);
+                        //console.log("Collision with " + other.name);
                         if (other.name == "phoenix_play") {
-                            console.log("Collision with " + other.name);
+                            //console.log("Collision with " + other.name);
                             this._lives = this._lives - 1;
                             this._livesLabel.text = "Lives: " + this._lives;
                             if (this._lives <= 0) {
