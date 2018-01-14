@@ -104,13 +104,14 @@ var scenes;
                 pbullet.Update();
                 _this._checkCollisionsPowerBullet(pbullet);
             });
-            // For Enemy Bullet
+            // For Temp Log
             //this._checkCollisionsEnemyBullet(this._player);
             // this._logConuter++;
             // if(this._logConuter > 50 ) {
             //     this._logConuter = 0;
             //     console.log("" + this._player.x + ", " + this._player.y );
             // }
+            // For Enemy Bullet
             var offsetX = this._player.width * 0.5;
             var offsetY = this._player.height * 0.5;
             // Temp Bullet Collision
