@@ -179,6 +179,7 @@ var scenes;
                         //console.log("Collision with " + other.name);
                         if (other.name == "phoenix_play") {
                             //console.log("Collision with " + other.name);
+                            this._player.Damaged();
                             this._lives = this._lives - 1;
                             this._livesLabel.text = "Lives: " + this._lives;
                             if (this._lives <= 0) {
@@ -212,8 +213,9 @@ var scenes;
                     // }
                     console.log(other.name);
                     if (other.name == "obstacle" || other.name == "monsterbird") {
-                        console.log(this._lives + " >> ");
+                        //console.log(this._lives+" >> ");
                         //this._lives -= 1;
+                        this._player.Damaged();
                         //other.Reset();
                         if (this._lives <= 0) {
                             this._currentScene = config.END;

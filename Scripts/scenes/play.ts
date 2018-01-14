@@ -225,9 +225,7 @@ module scenes {
               other.isColliding = false;
             }            
         }       
-    }
-
-   
+    } 
           
       private _checkCollisionsEnemyBullet(other:objects.GameObject) {
       //  var pos = this._player.position;
@@ -248,7 +246,8 @@ module scenes {
                     //console.log("Collision with " + other.name);
                     if(other.name == "phoenix_play"){
                       //console.log("Collision with " + other.name);
-                      this._lives = this._lives-1;
+                      this._player.Damaged();
+                      this._lives = this._lives - 1;
                       this._livesLabel.text = "Lives: " + this._lives;
                       if(this._lives<=0){
                       //  this._currentScene = config.LEVEL2;
@@ -289,8 +288,9 @@ module scenes {
           console.log(other.name);
             if(other.name == "obstacle" || other.name == "monsterbird") 
             {
-              console.log(this._lives+" >> ");
+             //console.log(this._lives+" >> ");
             //this._lives -= 1;
+             this._player.Damaged();
             //other.Reset();
             if(this._lives <= 0) {
               this._currentScene = config.END;
