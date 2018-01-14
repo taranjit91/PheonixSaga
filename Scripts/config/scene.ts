@@ -7,6 +7,7 @@ module config {
   export const END:number = 2;
   export const WIN:number = 6;
   export const CHOOSELEVEL:number = 7;
+ 
 
   export class Screen {
     public static WIDTH: number = 800;
