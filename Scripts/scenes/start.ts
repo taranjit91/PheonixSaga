@@ -51,7 +51,7 @@ module scenes {
       this.addChild(this._exitButton);
 
       this._startButton.on("click", () => {
-        this._currentScene = config.LEVEL1;
+        this._currentScene = config.PLAY;
         this.removeAllChildren();
       });
 

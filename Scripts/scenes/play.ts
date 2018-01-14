@@ -10,7 +10,7 @@ module scenes {
     // private _obstacles:objects.Obstacle[];  
     // private _obstacleNum:number;
     private _livesLabel: objects.Label;
-    private _ashesLabel: objects.Label;
+    //private _ashesLabel: objects.Label;
     private _scoreLabel: objects.Label;
     private _bulletsCountLabel: objects.Label;
 
@@ -78,7 +78,7 @@ module scenes {
 
       this._livesLabel = new objects.Label("Lives: " + this._lives, "30px", "gameFont", "#b42e2e", 10, 10, false);
       this._scoreLabel = new objects.Label("Score: " + this._score, "30px", "gameFont", "#b42e2e", 550, 10, false);
-      this._ashesLabel = new objects.Label("Ashes: 0%", "30px", "gameFont", "#b42e2e", 250, 10, false);
+      //this._ashesLabel = new objects.Label("Ashes: 0%", "30px", "gameFont", "#b42e2e", 250, 10, false);
 
       this._isHit = false;
       this._hitTime = 50;
@@ -169,7 +169,7 @@ module scenes {
       //   this.addChild(this._obstacles[count]);
       // }
       this.addChild(this._livesLabel);
-      this.addChild(this._ashesLabel);
+     // this.addChild(this._ashesLabel);
       this.addChild(this._scoreLabel);
     }
 
@@ -217,8 +217,8 @@ module scenes {
               this._score += 100;
               this._scoreLabel.text = "Score: " + this._score;
 
-              if (this._score >= 400) {
-                this._currentScene = config.LEVEL2;
+              if (this._score >= 700) {
+                this._currentScene = config.LEVEL3;
                 // this._engineSound.stop();
                 this.removeAllChildren();
               }
@@ -258,19 +258,18 @@ module scenes {
                 this._isHit = true;
                 this._player.Damaged();
               }
-              // this._player.Damaged();
-              // this._lives = this._lives - 1;
+              
               this._livesLabel.text = "Lives: " + this._lives;
 
               if (this._lives <= 0) {
-                //  this._currentScene = config.LEVEL2;
+                this._currentScene = config.END;
                 // this._engineSound.stop();
-                //this.removeAllChildren(); 
+                this.removeAllChildren(); 
               }
 
               //createjs.Sound.play("thunder", 0, 0, 0, 0, 0.5);
               //   this._monsterBird.Reset();
-              // this._bullets[j].Reset();              
+               this._bullets[j].Reset();              
               other.isColliding = true;
             }
           }

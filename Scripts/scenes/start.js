@@ -44,7 +44,7 @@ var scenes;
             this.addChild(this._tutorialButton);
             this.addChild(this._exitButton);
             this._startButton.on("click", function () {
-                _this._currentScene = config.LEVEL1;
+                _this._currentScene = config.PLAY;
                 _this.removeAllChildren();
             });
             this._levelsButton.on("click", function () {

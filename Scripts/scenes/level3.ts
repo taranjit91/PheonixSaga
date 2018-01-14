@@ -95,7 +95,7 @@ module scenes {
             this._powerBulletLabel = new objects.Label("Power Bullet: ", "16px", "gameFont", "#ffffff", 10, config.Screen.HEIGHT - 50, false);
 
             this._lives = 5;
-            this._livesLabel = new objects.Label("Lives: " + this._lives, "30px", "gameFont", "#b42e2e", 10, 10, false);
+            this._livesLabel = new objects.Label("Lives: " + this._lives, "30px", "gameFont", "#ffffff", 10, 10, false);
 
             this._isHit = false;
             this._hitTime = 50;
